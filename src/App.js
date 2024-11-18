@@ -1,8 +1,12 @@
-import './App.css';
-import Nav from './modules/nav';
+import React from 'react';
+import LoginPage from './login'; // Import the login page component
 
 function App() {
-  return <Nav />
+  return (
+    <div className="App">
+      <LoginPage />
+    </div>
+  );
 }
 
 export default App;
