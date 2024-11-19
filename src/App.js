@@ -1,15 +1,30 @@
-
-import Nav from './components/nav';
-import LoginForm from './components/LoginPage'; // Import the LoginForm component
+import React from 'react';
+import LoginForm from './components/LoginPage'; // Check the path!
+import Nav from './components/nav'; // Check the path!
+import MyCalendar from './components/MyCalendar'; // Check the path!
 
 function App() {
-  return (
-    <div>
+
+  function CalendarView() {
+    return (
+      <div>
+        <Nav /> {/* Navbar */}
+        <MyCalendar /> {/* MyCalendar */}
+      </div>
+    );
+  }
+    
+  function Login() {
+    return (
+      <div>
       <Nav /> {/* Navbar */}
       <LoginForm /> {/* Login Form */}
-    
     </div>
-  );
+    );
+  }
+
+  return CalendarView()
 }
+
 
 export default App;

@@ -1,0 +1,18 @@
+.rbc-event {
+    background-color: #4caf50; /* Green background */
+    color: white;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 12px;
+  }
+  
+  .rbc-toolbar {
+    background-color: #f8f9fa;
+    padding: 10px;
+  }
+  
+  .rbc-header {
+    font-weight: bold;
+    color: #333;
+  }
+  
