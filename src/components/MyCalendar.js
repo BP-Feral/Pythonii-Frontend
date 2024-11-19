@@ -38,17 +38,32 @@ const events = [
 
 const MyCalendar = () => {
   return (
-    <div style={{ height: '80vh', margin: '20px' }}>
-      <Calendar
-        localizer={localizer}
-        events={events}
-        startAccessor="start"
-        endAccessor="end"
-        defaultView="week" // Start with the week view
-        views={['month', 'week', 'day', 'agenda']} // Allow switching between views
-        style={{ height: '100%' }}
-        min={new Date(today.getFullYear(), today.getMonth(), 27, 7, 0)}
-      />
+    <div style={{ height: '80vh', margin: '20px'}}>
+      <div style={{position: 'absolute', left: '2%', width: "13%", height: '80vh'}}>
+        <Calendar
+          localizer={localizer}
+          events={events}
+          startAccessor="start"
+          endAccessor="end"
+          defaultView="agenda" // Start with the week view
+          views={['agenda']} // Allow switching between views
+          style={{ height: '100%'}}
+          min={new Date(today.getFullYear(), today.getMonth(), 27, 7, 0)}
+        />
+      </div>
+      <div style={{position: 'absolute', right: '2%', width: "82%", height: '80vh'}}>
+        <Calendar
+          localizer={localizer}
+          events={events}
+          startAccessor="start"
+          endAccessor="end"
+          defaultView="week" // Start with the week view
+          views={['day', 'week', 'month']} // Allow switching between views
+          style={{ height: '100%' }}
+          min={new Date(today.getFullYear(), today.getMonth(), 27, 7, 0)}
+          max={new Date(today.getFullYear(), today.getMonth(), 27, 21, 0)}
+        />
+      </div>
     </div>
   );
 };
