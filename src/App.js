@@ -1,5 +1,4 @@
 
-import './App.css';
 import Nav from './components/nav';
 import LoginForm from './components/LoginPage'; // Import the LoginForm component
 
@@ -8,6 +7,7 @@ function App() {
     <div>
       <Nav /> {/* Navbar */}
       <LoginForm /> {/* Login Form */}
+    
     </div>
   );
 }
