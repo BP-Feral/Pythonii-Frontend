@@ -1,7 +1,8 @@
 import React from 'react';
-import LoginForm from './components/LoginPage'; // Check the path!
+import ExamPlanner from './components/Programare_examen/programare';
+//import LoginForm from './components/LoginPage'; // Check the path!
 import Nav from './components/nav'; // Check the path!
-import MyCalendar from './components/MyCalendar'; // Check the path!
+//import MyCalendar from './components/MyCalendar'; // Check the path!
 
 function App() {
 
@@ -9,7 +10,7 @@ function App() {
     return (
       <div>
         <Nav /> {/* Navbar */}
-        <MyCalendar /> {/* MyCalendar */}
+        {/*<MyCalendar /> {/* MyCalendar */}
       </div>
     );
   }
@@ -18,12 +19,20 @@ function App() {
     return (
       <div>
       <Nav /> {/* Navbar */}
-      <LoginForm /> {/* Login Form */}
+      {/*}<LoginForm /> {/* Login Form */}
     </div>
     );
   }
+  function Programare() {
+    return (
+      <div>
+        <Nav />
+        <ExamPlanner />
+      </div>
+    );
+  }
 
-  return CalendarView()
+  return Programare()
 }
 
 
