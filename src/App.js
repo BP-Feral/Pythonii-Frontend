@@ -1,39 +1,21 @@
-import React from 'react';
-import ExamPlanner from './components/Programare_examen/programare';
-//import LoginForm from './components/LoginPage'; // Check the path!
-import Nav from './components/nav'; // Check the path!
-//import MyCalendar from './components/MyCalendar'; // Check the path!
-
-function App() {
-
-  function CalendarView() {
-    return (
-      <div>
-        <Nav /> {/* Navbar */}
-        {/*<MyCalendar /> {/* MyCalendar */}
-      </div>
-    );
-  }
-    
-  function Login() {
-    return (
-      <div>
-      <Nav /> {/* Navbar */}
-      {/*}<LoginForm /> {/* Login Form */}
-    </div>
-    );
-  }
-  function Programare() {
-    return (
-      <div>
-        <Nav />
-        <ExamPlanner />
-      </div>
-    );
-  }
-
-  return Programare()
-}
-
-
+// App.js
+import { Routes, Route } from 'react-router-dom';
+import LoginView from './pages/Login';
+import CalendarView from './pages/Calendar';
+import ProgramareView from './pages/Programare';
+import AboutUsView from './pages/AboutUs';
+ 
+const App = () => {
+   return (
+      <>
+         <Routes>
+            <Route path="/" element={<LoginView />} />
+            <Route path="/calendar" element={<CalendarView />} />
+            <Route path="/exam" element={<ProgramareView />} />
+            <Route path="/aboutus" element={<AboutUsView />} />
+         </Routes>
+      </>
+   );
+};
+ 
 export default App;

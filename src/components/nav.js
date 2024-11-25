@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Hamburger from "./hamburger";
+import { Link } from "react-router-dom";
 
 export default function Nav() {
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
@@ -19,10 +20,13 @@ export default function Nav() {
         </div>
         <div className="nav-items">
           <ul>
-            <li><a href="https://usv.ro/facultati">Faculties</a></li>
-            <li><a href="https://usv.ro/international">International</a></li>
-            <li><a href="https://usv.ro/studenti">Students</a></li>
-            <li><a href="/">About Us</a></li>
+            <li><a href="https://usv.ro/facultati">Faculties🔗</a></li>
+            <li><a href="https://usv.ro/international">International🔗</a></li>
+            <li><a href="https://usv.ro/studenti">Students🔗</a></li>
+            <div class="vl"></div>
+            <li><Link to="/calendar">Calendar📅</Link></li>
+            <li><Link to="/exam">Programare📅</Link></li>
+            <li><a href="/aboutus">About Us📄</a></li>
           </ul>
         </div>
         <div className="search-lang">
