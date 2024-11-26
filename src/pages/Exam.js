@@ -2,16 +2,36 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "../styles/Programare.css";
-import Nav from "../components/nav";
+import Nav from "../components/Navbar";
+import { useEvents } from "../components/EventsContext"; // Import the context
 
-function ProgramareView() {
+function ExamView() {
+
+  const an_studiu = [
+    {id: 1, nume: 'Anul 1'},
+    {id: 2, nume: 'Anul 2'},
+    {id: 3, nume: 'Anul 3'},
+    {id: 4, nume: 'Anul 4'}
+  ]
+
+  const semestru = [
+    {id: 1, nume: 'Semestrul 1'},
+    {id: 2, nume: 'Semestrul 2'}
+  ]
+
   const materii = [
-    { id: 1, nume: "Matematică" },
-    { id: 2, nume: "Fizică" },
-    { id: 3, nume: "Informatică" },
-    { id: 4, nume: "Chimie" },
+    { id: 1, nume: "PCLP1 (Programarea calculatoarelor si limbaje de programare 1)" },
+    { id: 2, nume: "GAC (Grafica Asistata de Calculator)" },
+    { id: 3, nume: "AM (Analiza Matematica)" },
+    { id: 4, nume: "ALGAD (Algebra Liniara, Geometrie Analitica si Diferentiala)" },
+    { id: 5, nume: "PL (Proiectare Logica)" },
+    { id: 6, nume: "Com (Comunicare)" },
+    { id: 5, nume: "Engl1 (Engleza 1)" },
+    { id: 5, nume: "EdFiz1 (Educatie Fizica 1)" },
+    { id: 5, nume: "CMat (Complemente de Matematica)" }
   ];
 
+  const { setEvents } = useEvents(); // Get the setter function for events
   const [materieSelectata, setMaterieSelectata] = useState("");
   const [dataSelectata, setDataSelectata] = useState(null);
   const [oraSelectata, setOraSelectata] = useState({ ora: 0, minut: 0 });
@@ -25,10 +45,36 @@ function ProgramareView() {
     setOraSelectata({ ...oraSelectata, [field]: parseInt(value) || 0 });
   };
 
+  const addEvent = () => {
+    if (!materieSelectata || !dataSelectata || !profesor) {
+      alert("Toate câmpurile sunt obligatorii!");
+      return;
+    }
+
+    const startDate = new Date(dataSelectata);
+    startDate.setHours(oraSelectata.ora, oraSelectata.minut);
+  
+    const endDate = new Date(startDate);
+    endDate.setHours(endDate.getHours() + 1); // Example: set a 1-hour duration
+  
+    const newEvent = {
+      title: `${materieSelectata} (${profesor})`,
+      start: startDate,
+      end: endDate,
+      allDay: false,
+    };
+  
+    setEvents((prevEvents) => {
+      const updatedEvents = [...prevEvents, newEvent];
+      localStorage.setItem("events", JSON.stringify(updatedEvents)); // Save to local storage
+      return updatedEvents;
+    });
+  
+    alert("Examen adăugat!");
+  };
+
   return (
     <div>
-
-
       <Nav />
       <div style={{ padding: "20px", fontFamily: "Arial" }}>
         <h2>Planificare Examen</h2>
@@ -53,12 +99,6 @@ function ProgramareView() {
               </option>
             ))}
           </select>
-        </div>
-
-        {/* Afișarea materiei selectate */}
-        <div style={{ marginBottom: "20px" }}>
-          <strong>Materia selectată:</strong>{" "}
-          {materieSelectata || "Nicio materie selectată"}
         </div>
 
         {/* Input pentru nume profesor */}
@@ -125,7 +165,7 @@ function ProgramareView() {
           </div>
         </div>
 
-        {/* Butoanele de acțiune */}
+        {/* Buton pentru adăugarea evenimentului */}
         <div style={{ marginTop: "20px" }}>
           <button
             style={{
@@ -135,29 +175,10 @@ function ProgramareView() {
               border: "none",
               borderRadius: "5px",
               cursor: "pointer",
-              marginRight: "10px",
             }}
-            onClick={() => alert("Solicitarea a fost trimisă!")}
+            onClick={addEvent}
           >
-            Solicită dată de examen
-          </button>
-          <button
-            style={{
-              padding: "10px 20px",
-              backgroundColor: "#dc3545",
-              color: "white",
-              border: "none",
-              borderRadius: "5px",
-              cursor: "pointer",
-            }}
-            onClick={() => {
-              setMaterieSelectata("");
-              setDataSelectata(null);
-              setOraSelectata({ ora: 0, minut: 0 });
-              setProfesor("");
-            }}
-          >
-            Anulează solicitarea
+            Adaugă examen
           </button>
         </div>
       </div>
@@ -165,4 +186,4 @@ function ProgramareView() {
   );
 }
 
-export default ProgramareView;
+export default ExamView;

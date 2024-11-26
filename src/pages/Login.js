@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/LoginPage.css"; // Add this file for styles
-import Nav from "../components/nav"
+import Nav from "../components/Navbar"
 
 import { Link } from "react-router";
 import { FaUser, FaLock } from "react-icons/fa";

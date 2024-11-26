@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import Hamburger from "./hamburger";
+import Hamburger from "./Hamburger";
 import { Link } from "react-router-dom";
+
+import "../styles/Navbar.css"; 
 
 export default function Nav() {
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
@@ -26,15 +28,17 @@ export default function Nav() {
             <div class="vl"></div>
             <li><Link to="/calendar">Calendar📅</Link></li>
             <li><Link to="/exam">Programare📅</Link></li>
-            <li><a href="/aboutus">About Us📄</a></li>
+            <li><Link to="/aboutus">About Us📄</Link></li>
+            <div class="vl"></div>
+            <li><Link to="/">Login</Link></li>
           </ul>
         </div>
         <div className="search-lang">
           <input type="text" placeholder="Search..." />
           <button className="search-btn">🔍</button>
           <select className="lang-dropdown">
-            <option value="ro">RO</option>
             <option value="en">EN</option>
+            <option value="ro">RO</option>
           </select>
         </div>
       </div>

@@ -1,5 +1,5 @@
 .rbc-event {
-  background-color: #4caf50; /* Green background */
+  background-color: #0099ff; /* Green background */
   color: white;
   border-radius: 5px;
   padding: 5px;
@@ -18,8 +18,4 @@
 
 .rbc-timeslot-group {
   min-height: 80px;
-}
-
-.vl {
-  border-left: 2px solid rgb(28, 119, 209);
 }
