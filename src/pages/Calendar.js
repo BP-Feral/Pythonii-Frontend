@@ -6,6 +6,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import Nav from "../components/Navbar";
 import "../styles/calendar.css";
 import { useEvents, loadEventsFromLocalStorage } from "../components/EventsContext";
+import { materii_1_1 } from "../components/data";
 
 // Initialize the localizer for react-big-calendar
 const localizer = momentLocalizer(moment);

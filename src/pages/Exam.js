@@ -4,41 +4,30 @@ import "react-datepicker/dist/react-datepicker.css";
 import "../styles/Programare.css";
 import Nav from "../components/Navbar";
 import { useEvents } from "../components/EventsContext"; // Import the context
-
+import { l_study_year, l_study_semester, materii_1_1, materii_1_2, materii_2_1, materii_2_2, materii_3_1, materii_3_2, materii_4_1, materii_4_2 } from "../components/data";
 function ExamView() {
 
-  const an_studiu = [
-    {id: 1, nume: 'Anul 1'},
-    {id: 2, nume: 'Anul 2'},
-    {id: 3, nume: 'Anul 3'},
-    {id: 4, nume: 'Anul 4'}
-  ]
-
-  const semestru = [
-    {id: 1, nume: 'Semestrul 1'},
-    {id: 2, nume: 'Semestrul 2'}
-  ]
-
-  const materii = [
-    { id: 1, nume: "PCLP1 (Programarea calculatoarelor si limbaje de programare 1)" },
-    { id: 2, nume: "GAC (Grafica Asistata de Calculator)" },
-    { id: 3, nume: "AM (Analiza Matematica)" },
-    { id: 4, nume: "ALGAD (Algebra Liniara, Geometrie Analitica si Diferentiala)" },
-    { id: 5, nume: "PL (Proiectare Logica)" },
-    { id: 6, nume: "Com (Comunicare)" },
-    { id: 5, nume: "Engl1 (Engleza 1)" },
-    { id: 5, nume: "EdFiz1 (Educatie Fizica 1)" },
-    { id: 5, nume: "CMat (Complemente de Matematica)" }
-  ];
-
   const { setEvents } = useEvents(); // Get the setter function for events
+  
+  const [selectedYear, setSelectedYear] = useState("");
+  const [selectedSemester, setSelectedSemester] = useState("");
+
   const [materieSelectata, setMaterieSelectata] = useState("");
   const [dataSelectata, setDataSelectata] = useState(null);
   const [oraSelectata, setOraSelectata] = useState({ ora: 0, minut: 0 });
   const [profesor, setProfesor] = useState("");
 
+
   const handleMaterieChange = (event) => {
     setMaterieSelectata(event.target.value);
+  };
+
+  const handleSelectedYear = (event) => {
+    setSelectedYear(event.target.value);
+  };
+
+  const handleSelectedSemester = (event) => {
+    setSelectedSemester(event.target.value);
   };
 
   const handleOraChange = (field, value) => {
@@ -46,7 +35,7 @@ function ExamView() {
   };
 
   const addEvent = () => {
-    if (!materieSelectata || !dataSelectata || !profesor) {
+    if (!selectedYear || !selectedSemester || !materieSelectata || !dataSelectata || !profesor) {
       alert("Toate câmpurile sunt obligatorii!");
       return;
     }
@@ -76,8 +65,36 @@ function ExamView() {
   return (
     <div>
       <Nav />
-      <div style={{ padding: "20px", fontFamily: "Arial" }}>
-        <h2>Planificare Examen</h2>
+      <div className="exam-planner-div" style={{fontFamily: "Arial" }}>
+        <h2>Exam Planner</h2>
+
+        {/* Container for Year and Semester */}
+        <div className="parent" style={{ marginBottom: "20px"}}>
+          
+          {/* Dropdown for choosing study year */}
+          <div style={{ float: 'left' }}>
+            <select id="an_studiu" value={selectedYear} onChange={handleSelectedYear} style={{padding: '8px', width: "100%" }} >
+              <option value="" disabled> Year </option>
+              {l_study_year.map((an_stud) => (
+                <option key={an_stud.id} value={an_stud.nume}>
+                  {an_stud.nume}
+                </option>
+              ))}
+            </select> 
+          </div>
+
+          {/* Dropdown for chosing semester */}
+          <div style={{ float: 'left'}}>
+            <select id="smester_studiu" value={selectedSemester} onChange={handleSelectedSemester} style={{float: 'left',  padding: '8px', width: "100%" }} >
+              <option value="" disabled> Semester </option>
+              {l_study_semester.map((semester_iter) => (
+                <option key={semester_iter.id} value={semester_iter.nume}>
+                  {semester_iter.nume}
+                </option>
+              ))}
+            </select> 
+          </div>
+        </div>
 
         {/* Dropdown-ul pentru alegerea materiei */}
         <div style={{ marginBottom: "20px" }}>
@@ -93,7 +110,7 @@ function ExamView() {
             <option value="" disabled>
               Selectează o materie
             </option>
-            {materii.map((materie) => (
+            {materii_1_1.map((materie) => (
               <option key={materie.id} value={materie.nume}>
                 {materie.nume}
               </option>
