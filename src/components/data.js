@@ -49,3 +49,5 @@ export const materii_4_1 = [
 export const materii_4_2 = [
     { id: 1, nume: "exemplu"}
 ]
+
+export const profesori = []
