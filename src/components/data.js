@@ -18,8 +18,7 @@ export const materii_1_1 = [
     { id: 1, nume: "[ALGAD] Algebra liniara, geometrie analitica si diferentiala" },
     { id: 2, nume: "[AM] Analiza matematica" },
     { id: 3, nume: "[PL] Proiectare logica" },
-    { id: 4, nume: "[GAC] Grafica Asistata de calculator" },
-    {/*...*/}
+    { id: 4, nume: "[GAC] Grafica Asistata de calculator" }
 ];
 
 export const materii_1_2 = [
