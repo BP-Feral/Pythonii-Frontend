@@ -1,12 +1,13 @@
 import React from "react";
-import { Calendar, momentLocalizer } from "react-big-calendar";
-import moment from "moment";
-import "react-big-calendar/lib/css/react-big-calendar.css";
-
 import Nav from "../components/Navbar";
-import "../styles/calendar.css";
+import moment from "moment";
+import { Calendar, momentLocalizer } from "react-big-calendar";
 import { useEvents, loadEventsFromLocalStorage } from "../components/EventsContext";
 import { materii_1_1 } from "../components/data";
+
+import "../styles/calendar.css";
+import "react-big-calendar/lib/css/react-big-calendar.css";
+
 
 // Initialize the localizer for react-big-calendar
 const localizer = momentLocalizer(moment);
@@ -15,16 +16,16 @@ const CalendarView = () => {
   const { events, setEvents } = useEvents();
 
   // Reload events from local storage without refreshing the page
-  const reloadEvents = () => {
-    const storedEvents = loadEventsFromLocalStorage();
-    setEvents(storedEvents);
-  };
+  // const reloadEvents = () => {
+  //   const storedEvents = loadEventsFromLocalStorage();
+  //   setEvents(storedEvents);
+  // };
 
   // Clear local storage and refresh events
   const clearLocalStorage = () => {
     localStorage.clear();
     console.log("Local storage cleared!");
-    reloadEvents();
+    // reloadEvents();
   };
 
   return (
@@ -33,7 +34,7 @@ const CalendarView = () => {
       <div style={{ padding: "10px" }}>
         <button
           style={buttonStyle}
-          onClick={reloadEvents}
+          // onClick={reloadEvents}
         >
           Refresh Calendar
         </button>

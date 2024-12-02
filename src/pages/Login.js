@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import "../styles/LoginPage.css"; // Add this file for styles
 import Nav from "../components/Navbar";
 import { FaUser, FaLock } from "react-icons/fa";
-import { useNavigate } from "react-router-dom"; // Correct router import for v6
+import { useNavigate } from "react-router-dom";
+
+import "../styles/LoginPage.css";
+
 
 const LoginView = () => {
   const [username, setUsername] = useState("");

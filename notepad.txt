@@ -1,0 +1,23 @@
+TODO
+    LOGOUT
+    COMPLETE data.js (https://fiesc.usv.ro/wp-content/uploads/sites/17/2022/07/C_2022.pdf)
+
+
+Exam Fields
+    numele_examen : "name",
+    tip_examen : "exam_type", ///['Written', 'Oral', 'Mixed']
+    data_examn : "scheduled_date",
+    numar_ore : "duration",
+    profil : "department", /// [ soft, soft-hard, hard ]
+    sala : "room", /// [ select from list ]
+    profesor : "proffesor"
+
+
+ROUTES
+    PUT /exams/
+    POST /exams/
+    DELETE exams/3/
+
+
+AUTH
+    Authorization : Bearer {access_token}

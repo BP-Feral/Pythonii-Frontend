@@ -1,57 +1,81 @@
-.exam-planner-div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background-color: #f0f8ff;
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
 }
 
-.exam-planner {
-  max-width: 500px;
-  margin: 0 auto;
-  padding: 20px;
-  background: #f0f8ff;
+.exam-planner-div {
+  max-width: 900px;
+  margin: 40px auto;
+  background-color: #ffffff;
+  padding: 30px 20px;
   border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.exam-planner-div > div {
+  display: flex;
+  flex-direction: column;
+}
+
+input, select, .react-datepicker-wrapper {
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 label {
-  display: block;
-  margin-top: 10px;
   font-weight: bold;
-} 
+  margin-bottom: 5px;
+  color: #495057;
+}
 
-input, select {
+.react-datepicker-wrapper {
+  display: block;
+}
+
+.react-datepicker__input-container input {
   width: 100%;
-  padding: 8px;
-  margin: 5px 0 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.date-picker {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 10px;
-}
-
-.buttons {
-  display: flex;
-  justify-content: space-between;
-}
-
-.save-button {
-  background-color: #4caf50;
-  color: white;
-  padding: 10px 20px;
-  border: none;
+  padding: 10px;
+  border: 1px solid #ced4da;
   border-radius: 5px;
 }
 
-.request-button {
-  background-color: #007bff;
-  color: white;
+/* Full-width button */
+.addExamenButton {
+  grid-column: span 2;
   padding: 10px 20px;
+  background-color: #007BFF;
+  color: white;
   border: none;
   border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  text-align: center;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.addExamenButton:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .exam-planner-div {
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
+
+  .addExamenButton {
+    grid-column: span 1;
+  }
 }
