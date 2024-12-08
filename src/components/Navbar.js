@@ -1,14 +1,55 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Hamburger from "./Hamburger";
-import { Link } from "react-router-dom";
-
-import "../styles/Navbar.css"; 
+import { Link, useNavigate } from "react-router-dom";
+import "../styles/Navbar.css";
 
 export default function Nav() {
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
 
+  // Toggle Hamburger menu
   const toggleHamburger = () => {
     setHamburgerOpen(!hamburgerOpen);
+  };
+
+  // Check if the user is logged in
+  useEffect(() => {
+    const token = localStorage.getItem("access_token");
+    setIsLoggedIn(!!token); // Set isLoggedIn based on token existence
+  }, []);
+
+  // Handle logout
+  const handleLogout = async () => {
+    const token = localStorage.getItem("access_token"); // Get the token from localStorage
+
+    if (token) {
+      try {
+        // Send the logout request with the Authorization header
+        const response = await fetch("http://localhost:8000/auth/logout/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`, // Include the token in the Authorization header
+          },
+        });
+
+        if (response.ok) {
+          // Clear the tokens from localStorage and redirect
+          localStorage.removeItem("access_token");
+          localStorage.removeItem("refresh_token");
+          setIsLoggedIn(false);
+          navigate("/"); // Redirect to login page after logout
+        } else {
+          // Handle the error if the response is not OK
+          console.error("Logout failed");
+        }
+      } catch (error) {
+        console.error("Error during logout:", error);
+      }
+    } else {
+      console.error("No token found for logout");
+    }
   };
 
   return (
@@ -25,20 +66,28 @@ export default function Nav() {
             <li><a href="https://usv.ro/facultati">Facultati🔗</a></li>
             <li><a href="https://usv.ro/international">International🔗</a></li>
             <li><a href="https://usv.ro/studenti">Studenti🔗</a></li>
-            <div class="vl"></div>
-            <li><Link to="/calendar">Calendar📅</Link></li>
-            <li><Link to="/programare">Programare📅</Link></li>
-            <li><Link to="/despre-noi">Despre Noi📄</Link></li>
-            <div class="vl"></div>
-            <li><Link to="/">Logare (temp)</Link></li>
+            <div className="vl"></div>
+            
+            {isLoggedIn ? (
+              <>
+                <li><Link to="/calendar">Calendar📅</Link></li>
+                <li><Link to="/programare">Programare📅</Link></li>
+                <li><Link to="/despre-noi">Despre Noi📄</Link></li>
+                <div className="vl"></div>
+                <li>
+                  <button className="logout-btn" onClick={handleLogout}>
+                    Logout
+                  </button>
+                </li>
+              </>
+            ) : (
+              <li><Link to="/">Login</Link></li>
+            )}
           </ul>
         </div>
         <div className="search-lang">
-          {/* <input type="text" placeholder="Search..." />
-          <button className="search-btn">🔍</button> */}
           <select className="lang-dropdown">
             <option value="ro">RO</option>
-            {/* <option value="en">EN</option> */}
           </select>
         </div>
       </div>
@@ -50,12 +99,21 @@ export default function Nav() {
       {hamburgerOpen && (
         <div className="mobile-nav">
           <ul>
-          <li><a href="https://usv.ro/facultati">Facultati🔗</a></li>
+            <li><a href="https://usv.ro/facultati">Facultati🔗</a></li>
             <li><a href="https://usv.ro/international">International🔗</a></li>
             <li><a href="https://usv.ro/studenti">Studenti🔗</a></li>
-            <li><Link to="/calendar">Calendar📅</Link></li>
-            <li><Link to="/exam">Programare📅</Link></li>
-            <li><Link to="/despre-noi">Despre Noi📄</Link></li>
+            {isLoggedIn && (
+              <>
+                <li><Link to="/calendar">Calendar📅</Link></li>
+                <li><Link to="/programare">Programare📅</Link></li>
+                <li><Link to="/despre-noi">Despre Noi📄</Link></li>
+                <li>
+                  <button className="logout-btn" onClick={handleLogout}>
+                    Logout
+                  </button>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       )}

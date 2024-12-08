@@ -6,7 +6,8 @@ file = open("date.out", 'w')
 
 items = []
 for item in data:
-    print(f'<div id="option-{id}" class="option ">{item["firstName"]} {item["lastName"]}</div>')
+    # print(f'<div id="option-{id}" class="option ">{item["firstName"]} {item["lastName"]}</div>')
+    print("{ id: " + str(id) + ", nume: " + '"' + str(item["lastName"]) + " " + str(item["firstName"]) + '"' + "}")
     #print(f'\{ id: 1, nume: "{item["firstName"]} {item["lastName"]}"\}')
     id = id+1
 

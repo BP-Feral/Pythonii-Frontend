@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import Nav from "../components/Navbar";
 
+import { professors_data } from "../data/Professors";
+import { rooms_data } from "../data/Rooms";
+import { exams_data } from "../data/Exams";
+
 import "react-datepicker/dist/react-datepicker.css";
 import "../styles/Programare.css";
 
@@ -63,20 +67,28 @@ function ExamView() {
       <Nav />
       <h2>Planificare Examen</h2>
       <div>
-        <div>
-          <label htmlFor="name">
-            Numele Examenului:
-          </label>
-          <input
-            type="text"
+
+        {/* Exam Name */}
+        <div className="option-field">
+          <label htmlFor="name">Numele Examenului:</label>
+          <select
             id="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-          />
+          >
+            <option value="">Selecteaza Examenul</option>
+            {
+              exams_data.map((_exams) => (
+                <option key={_exams.id} value={_exams.name}>
+                  {_exams.name}
+                </option>
+              ))
+            }
+          </select>
         </div>
-
+        
         {/* Exam Type */}
-        <div>
+        <div className="option-field">
           <label htmlFor="examType">
             Tipul Examenului:
           </label>
@@ -95,7 +107,7 @@ function ExamView() {
         </div>
 
         {/* Scheduled Date */}
-        <div>
+        <div className="option-field">
           <label htmlFor="scheduledDate">
             Data Programarii:
           </label>
@@ -110,7 +122,7 @@ function ExamView() {
         </div>
 
         {/* Duration */}
-        <div>
+        <div className="option-field">
           <label htmlFor="duration">
             Durata (in ore):
           </label>
@@ -124,7 +136,7 @@ function ExamView() {
         </div>
 
         {/* Department */}
-        <div>
+        <div className="option-field">
           <label htmlFor="department">
             departament:
           </label>
@@ -143,37 +155,51 @@ function ExamView() {
         </div>
 
         {/* Room */}
-        <div>
-          <label htmlFor="room">
-            Sala:
-          </label>
-          <input
+        <div className="option-field">
+          <label htmlFor="room">Sala:</label>
+          <select
             type="text"
             id="room"
             value={room}
             onChange={(e) => setRoom(e.target.value)}
-          />
+          >
+            <option value="">Selecteaza sala</option>
+            {
+              rooms_data.map((_room) => (
+                <option key={_room.id} value={_room.name}>
+                  {_room.name}
+                </option>
+              ))
+            }
+          </select>
         </div>
-
+        
         {/* Professor */}
-        <div>
-          <label htmlFor="professor">
-            Profesor:
-          </label>
-          <input
-            type="text"
+        <div className="option-field">
+          <label htmlFor="professor">Profesor:</label>
+          <select
             id="professor"
             value={professor}
             onChange={(e) => setProfessor(e.target.value)}
-          />
+          >
+            <option value="">Selecteaza un profesor</option>
+            {
+              professors_data.map((_professor) => (
+                <option key={_professor.id} value={_professor.name}>
+                  {_professor.name}
+                </option>
+              ))
+            }
+          </select>
         </div>
-
+        
         {/* Submit Button */}
-        <div>
+        <div className="option-button">
           <button className="addExamenButton" onClick={handleSubmit}>
             Trimite Cerere
           </button>
         </div>
+
       </div>
     </div>
   );
