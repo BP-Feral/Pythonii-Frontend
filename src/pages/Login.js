@@ -14,7 +14,7 @@ const LoginView = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setError(""); // Clear any previous errors
+    setError("");
 
     try {
       const response = await fetch("http://localhost:8000/auth/login/", {
@@ -33,7 +33,7 @@ const LoginView = () => {
       // Store tokens in localStorage or cookie
       localStorage.setItem("access_token", data.access);
       localStorage.setItem("refresh_token", data.refresh);
-      navigate("/calendar"); // Redirect to calendar page
+      navigate("/calendar");
     } catch (err) {
       setError(err.message);
     }
@@ -54,7 +54,7 @@ const LoginView = () => {
                 <FaUser className="icon" />
                 <input
                   type="text"
-                  placeholder="Username"
+                  placeholder=" Email"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                 />
@@ -63,7 +63,7 @@ const LoginView = () => {
                 <FaLock className="icon" />
                 <input
                   type="password"
-                  placeholder="Password"
+                  placeholder=" Parola"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
@@ -74,11 +74,7 @@ const LoginView = () => {
             </form>
             {error && <p className="error-message">{error}</p>}
             <div className="login-options">
-              <label>
-                <input type="checkbox" />
-                Remember me
-              </label>
-              <a href="/forgot-password">Forgot password?</a>
+              <a href="/forgot-password">Ai uitat parola?</a>
             </div>
           </div>
 

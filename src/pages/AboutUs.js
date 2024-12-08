@@ -5,7 +5,7 @@ const AboutUsView = () => {
     return (
         <div>
             <Nav />
-            <h1>About Us</h1>;
+            <h1>Despre Noi</h1>;
         </div>
     )
   };

@@ -61,11 +61,11 @@ function ExamView() {
   return (
     <div>
       <Nav />
-      <h2>Exam Planner</h2>
+      <h2>Planificare Examen</h2>
       <div>
         <div>
           <label htmlFor="name">
-            Exam Name:
+            Numele Examenului:
           </label>
           <input
             type="text"
@@ -78,7 +78,7 @@ function ExamView() {
         {/* Exam Type */}
         <div>
           <label htmlFor="examType">
-            Exam Type:
+            Tipul Examenului:
           </label>
           <select
             id="examType"
@@ -86,25 +86,25 @@ function ExamView() {
             onChange={(e) => setExamType(e.target.value)}
           >
             <option value="" disabled>
-              Choose exam type
+              selecteaza
             </option>
-            <option value="written">written</option>
+            <option value="written">scris</option>
             <option value="oral">oral</option>
-            <option value="mixed">mixed</option>
+            <option value="mixed">mix</option>
           </select>
         </div>
 
         {/* Scheduled Date */}
         <div>
           <label htmlFor="scheduledDate">
-            Scheduled Date:
+            Data Programarii:
           </label>
           <DatePicker
             id="scheduledDate"
             selected={scheduledDate}
             onChange={(date) => setScheduledDate(date)}
             dateFormat="yyyy-MM-dd"
-            placeholderText="Alege o dată"
+            placeholderText="selecteaza data"
             minDate={new Date()}
           />
         </div>
@@ -112,7 +112,7 @@ function ExamView() {
         {/* Duration */}
         <div>
           <label htmlFor="duration">
-            Duration (hours):
+            Durata (in ore):
           </label>
           <input
             type="number"
@@ -126,7 +126,7 @@ function ExamView() {
         {/* Department */}
         <div>
           <label htmlFor="department">
-            Department:
+            departament:
           </label>
           <select
             id="department"
@@ -134,18 +134,18 @@ function ExamView() {
             onChange={(e) => setDepartment(e.target.value)}
           >
             <option value="" disabled>
-              Choose Department
+              alege departament
             </option>
-            <option value="soft">Soft</option>
-            <option value="soft-hard">Hard-Soft</option>
-            <option value="hard">Hard</option>
+            <option value="soft">soft</option>
+            <option value="soft-hard">hard + soft</option>
+            <option value="hard">hard</option>
           </select>
         </div>
 
         {/* Room */}
         <div>
           <label htmlFor="room">
-            Room:
+            Sala:
           </label>
           <input
             type="text"
@@ -158,7 +158,7 @@ function ExamView() {
         {/* Professor */}
         <div>
           <label htmlFor="professor">
-            Professor:
+            Profesor:
           </label>
           <input
             type="text"
@@ -171,7 +171,7 @@ function ExamView() {
         {/* Submit Button */}
         <div>
           <button className="addExamenButton" onClick={handleSubmit}>
-            Submit exam
+            Trimite Cerere
           </button>
         </div>
       </div>

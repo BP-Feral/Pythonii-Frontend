@@ -2,18 +2,17 @@ import React from "react";
 import Nav from "../components/Navbar";
 import moment from "moment";
 import { Calendar, momentLocalizer } from "react-big-calendar";
-import { useEvents, loadEventsFromLocalStorage } from "../components/EventsContext";
-import { materii_1_1 } from "../components/data";
+import { useEvents } from "../components/EventsContext";
+// import { materii_1_1 } from "../components/data";
 
 import "../styles/calendar.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-
 
 // Initialize the localizer for react-big-calendar
 const localizer = momentLocalizer(moment);
 
 const CalendarView = () => {
-  const { events, setEvents } = useEvents();
+  const { events } = useEvents();
 
   // Reload events from local storage without refreshing the page
   // const reloadEvents = () => {
@@ -32,21 +31,20 @@ const CalendarView = () => {
     <div>
       <Nav />
       <div style={{ padding: "10px" }}>
-        <button
-          style={buttonStyle}
+        <button className="button-style"
           // onClick={reloadEvents}
         >
-          Refresh Calendar
+          Reimprospateaza Calendar
         </button>
         <button
-          style={{ ...buttonStyle, marginLeft: "10px" }}
+          className="button-style"
           onClick={clearLocalStorage}
         >
-          Clear Local Storage
+          Curata Storage Local
         </button>
       </div>
-      <div style={calendarContainerStyle}>
-        <div style={agendaStyle}>
+      <div className="calendar-container-style ">
+        <div className="agenda-style">
           <Calendar
             localizer={localizer}
             events={events}
@@ -58,7 +56,7 @@ const CalendarView = () => {
             min={new Date(new Date().getFullYear(), new Date().getMonth(), 27, 7, 0)}
           />
         </div>
-        <div style={weekStyle}>
+        <div className="week-style">
           <Calendar
             localizer={localizer}
             events={events}
@@ -74,36 +72,6 @@ const CalendarView = () => {
       </div>
     </div>
   );
-};
-
-// Styling
-const buttonStyle = {
-  padding: "10px 15px",
-  marginBottom: "10px",
-  backgroundColor: "#192041",
-  color: "white",
-  border: "none",
-  borderRadius: "5px",
-  cursor: "pointer",
-};
-
-const calendarContainerStyle = {
-  height: "80vh",
-  margin: "20px",
-};
-
-const agendaStyle = {
-  position: "absolute",
-  left: "2%",
-  width: "13%",
-  height: "80vh",
-};
-
-const weekStyle = {
-  position: "absolute",
-  right: "2%",
-  width: "82%",
-  height: "80vh",
 };
 
 export default CalendarView;

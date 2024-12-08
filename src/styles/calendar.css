@@ -1,5 +1,5 @@
 .rbc-event {
-  background-color: #0099ff; /* Green background */
+  background-color: #0099ff;
   color: white;
   border-radius: 5px;
   padding: 5px;
@@ -18,4 +18,34 @@
 
 .rbc-timeslot-group {
   min-height: 80px;
+}
+
+.calendar-container-style {
+  height: 80vh;
+  margin: 20px;
+}
+
+.week-style {
+  position: absolute;
+  right: 2%;
+  width: 82%;
+  height: 80vh;
+}
+
+.agenda-style {
+  position: absolute;
+  left: 2%;
+  width: 13%;
+  height: 80vh;
+}
+
+.button-style {
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  background-color: #192041;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
 }
