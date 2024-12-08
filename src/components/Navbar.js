@@ -21,7 +21,8 @@ export default function Nav() {
 
   // Handle logout
   const handleLogout = async () => {
-    const token = localStorage.getItem("access_token"); // Get the token from localStorage
+    const access_token = localStorage.getItem("access_token"); // Get the token from localStorage
+    const token = localStorage.getItem("refresh_token");
 
     if (token) {
       try {
@@ -30,7 +31,7 @@ export default function Nav() {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`, // Include the token in the Authorization header
+            "Authorization": `Bearer ${access_token}`, // Include the token in the Authorization header
           },
         });
 

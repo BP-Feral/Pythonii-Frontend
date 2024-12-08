@@ -14,13 +14,14 @@ function ExamView() {
   const [name, setName] = useState("");
   const [examType, setExamType] = useState("");
   const [scheduledDate, setScheduledDate] = useState(null);
+  const [scheduledTime, setScheduledTime] = useState(null);
   const [duration, setDuration] = useState(1);
   const [department, setDepartment] = useState("");
   const [room, setRoom] = useState("");
   const [professor, setProfessor] = useState("");
 
   const handleSubmit = async () => {
-    if (!name || !examType || !scheduledDate || !duration || !department || !room || !professor) {
+    if (!name || !examType || !scheduledDate || !duration || !department || !room || !professor || !scheduledTime) {
       alert("All fields are required!");
       return;
     }
@@ -28,18 +29,22 @@ function ExamView() {
     const examData = {
       name,
       exam_type: examType,
-      scheduled_date: scheduledDate.toISOString(),
+      scheduled_date: scheduledDate.toISOString().split('T')[0],
+      scheduledTime: scheduledTime,
       duration,
       department,
       room,
       proffesor: professor,
     };
+    
 
     try {
+      const access_token = localStorage.getItem("access_token"); // Get the token from localStorage
       const response = await fetch("http://localhost:8000/exams/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Bearer ${access_token}`, // Include the token in the Authorization header
         },
         body: JSON.stringify(examData),
       });
@@ -49,6 +54,7 @@ function ExamView() {
         setName("");
         setExamType("");
         setScheduledDate(null);
+        setScheduledTime(null);
         setDuration(1);
         setDepartment("");
         setRoom("");
@@ -100,9 +106,9 @@ function ExamView() {
             <option value="" disabled>
               selecteaza
             </option>
-            <option value="written">scris</option>
-            <option value="oral">oral</option>
-            <option value="mixed">mix</option>
+            <option value="Written">scris</option>
+            <option value="Oral">oral</option>
+            <option value="Mixed">mix</option>
           </select>
         </div>
 
@@ -115,9 +121,27 @@ function ExamView() {
             id="scheduledDate"
             selected={scheduledDate}
             onChange={(date) => setScheduledDate(date)}
-            dateFormat="yyyy-MM-dd"
+            dateFormat="YYYY-MM-DD"
             placeholderText="selecteaza data"
             minDate={new Date()}
+          />
+        </div>
+
+        {/* Scheduled time */}
+        <div className="option-field">
+          <label htmlFor="scheduledTime">
+            Ora Programării:
+          </label>
+          <DatePicker
+            id="scheduledTime"
+            selected={scheduledTime}
+            onChange={(hour) => setScheduledTime(hour)}
+            showTimeSelect
+            showTimeSelectOnly
+            timeIntervals={15} // Intervale de selecție a orei (15 minute)
+            timeCaption="Ora"
+            dateFormat="HH:mm" // Format de 24 ore
+            placeholderText="Selectează ora"
           />
         </div>
 
@@ -173,7 +197,7 @@ function ExamView() {
             }
           </select>
         </div>
-        
+
         {/* Professor */}
         <div className="option-field">
           <label htmlFor="professor">Profesor:</label>
@@ -192,7 +216,7 @@ function ExamView() {
             }
           </select>
         </div>
-        
+
         {/* Submit Button */}
         <div className="option-button">
           <button className="addExamenButton" onClick={handleSubmit}>
