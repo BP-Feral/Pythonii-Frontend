@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import ColoanaCereri from "../components/ColoanaCereri.js";
-
+import Nav from "../components/Navbar.js";
 
 const Cereri = () => {
   const [cereri, setCereri] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchRequests = async () => {
       try {
-        const response = await fetch("/api/requests/", {
+        const response = await fetch("http://localhost:8000/api/request/", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`, // Include token-ul de autentificare
           },
@@ -18,10 +20,12 @@ const Cereri = () => {
           const data = await response.json();
           setCereri(data);
         } else {
-          console.error("Eroare la preluarea cererilor:", response.status);
+          setError("Nu s-au putut prelua cererile. Verifică serverul.");
         }
       } catch (error) {
-        console.error("Eroare de rețea:", error);
+        setError("Eroare de rețea. Te rugăm să încerci din nou.");
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -33,13 +37,25 @@ const Cereri = () => {
   const cereriAsistent = cereri.filter((cerere) => cerere.request_type === "RescheduleRequest");
 
   return (
-    <div style={styles.pageContainer}>
-      <header style={styles.header}>
-        <h1>Planificări Examene iarnă 2024-2025</h1>
-      </header>
-      <div style={styles.columnsContainer}>
-        <ColoanaCereri title="Titular" cereri={cereriTitular} />
-        <ColoanaCereri title="Asistent" cereri={cereriAsistent} />
+    <div>
+      <Nav />
+      <div style={styles.pageContainer}>
+        <header style={styles.header}>
+          <h1>Planificări Examene iarnă 2024-2025</h1>
+        </header>
+        {loading ? (
+          <p style={styles.message}>Se încarcă cererile...</p>
+        ) : error ? (
+          <p style={styles.message}>{error}</p>
+        ) : (
+          <div style={styles.columnsContainer}>
+            <ColoanaCereri title="Titular" cereri={cereriTitular} />
+            <ColoanaCereri title="Asistent" cereri={cereriAsistent} />
+          </div>
+        )}
+        {!loading && !error && cereri.length === 0 && (
+          <p style={styles.message}>Nu există cereri disponibile.</p>
+        )}
       </div>
     </div>
   );
@@ -58,7 +74,14 @@ const styles = {
   },
   columnsContainer: {
     display: "flex",
+    flexDirection: "row",
     gap: "20px",
+    justifyContent: "center",
+  },
+  message: {
+    textAlign: "center",
+    fontSize: "18px",
+    color: "#f8d7da",
   },
 };
 

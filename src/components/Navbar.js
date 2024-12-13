@@ -79,7 +79,9 @@ export default function Nav() {
                 <li><Link to="/calendar">Calendar📅</Link></li>
                 <li><Link to="/programare">Programare📅</Link></li>
                 <li><Link to="/cereri">Cereri</Link></li>
+                <li><Link to="/CereriProfesorSecretariat">CereriP</Link></li>
                 <li><Link to="/despre-noi">Despre Noi📄</Link></li>
+
                 <div className="vl"></div>
                 <li>
                   <button className="logout-btn" onClick={handleLogout}>
