@@ -43,7 +43,6 @@ function ExamView() {
       proffesor: professor,
     };
     
-
     try {
       const access_token = localStorage.getItem("access_token"); // Get the token from localStorage
       const response = await fetch("http://localhost:8000/exams/", {
@@ -98,7 +97,7 @@ function ExamView() {
             }
           </select>
         </div>
-        
+
         {/* Exam Type */}
         <div className="option-field">
           <label htmlFor="examType">

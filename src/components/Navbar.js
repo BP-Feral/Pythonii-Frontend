@@ -69,6 +69,7 @@ export default function Nav() {
             <li><a href="https://usv.ro/facultati">Facultati🔗</a></li>
             <li><a href="https://usv.ro/international">International🔗</a></li>
             <li><a href="https://usv.ro/studenti">Studenti🔗</a></li>
+            
             <div className="vl"></div>
             
             {isLoggedIn ? (

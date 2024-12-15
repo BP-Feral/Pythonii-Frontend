@@ -10,15 +10,14 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 
 const localizer = momentLocalizer(moment);
 
-
 const CalendarView = () => {
   const { events, fetchEvents } = useEvents();
   fetchEvents();
   return (
     <div>
-      
+
       <Nav/>
-      
+
       <div style={{ padding: "10px" }}>
         <button className="button-style" onClick={fetchEvents}>
           Refresh Calendar
