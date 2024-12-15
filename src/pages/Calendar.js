@@ -13,7 +13,7 @@ const localizer = momentLocalizer(moment);
 
 const CalendarView = () => {
   const { events, fetchEvents } = useEvents();
-
+  fetchEvents();
   return (
     <div>
       

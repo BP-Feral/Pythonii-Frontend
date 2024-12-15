@@ -26,11 +26,17 @@ function ExamView() {
       return;
     }
 
+    const dateString = scheduledTime
+    const date = new Date(dateString);
+    const hours = date.getHours();
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    const formattedTime = `${hours}:${minutes}`
+
     const examData = {
       name,
       exam_type: examType,
       scheduled_date: scheduledDate.toISOString().split('T')[0],
-      scheduledTime: scheduledTime,
+      scheduled_time: formattedTime,
       duration,
       department,
       room,
