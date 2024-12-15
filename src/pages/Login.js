@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import Nav from "../components/Navbar";
 import { FaUser, FaLock } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+
+import Nav from "../components/Navbar";
 
 import "../styles/LoginPage.css";
 
@@ -44,6 +45,7 @@ const LoginView = () => {
       <Nav />
       <div className="login-page">
         <div className="login-container">
+
           {/* Login Form */}
           <div className="login-form">
             <div className="icon-placeholder">

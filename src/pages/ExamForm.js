@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import DatePicker from "react-datepicker";
-import Nav from "../components/Navbar";
-
 import { professors_data } from "../data/Professors";
 import { rooms_data } from "../data/Rooms";
 import { exams_data } from "../data/Exams";
+
+import DatePicker from "react-datepicker";
+import Nav from "../components/Navbar";
 
 import "react-datepicker/dist/react-datepicker.css";
 import "../styles/Programare.css";
@@ -138,9 +138,9 @@ function ExamView() {
             onChange={(hour) => setScheduledTime(hour)}
             showTimeSelect
             showTimeSelectOnly
-            timeIntervals={15} // Intervale de selecție a orei (15 minute)
+            timeIntervals={15}
             timeCaption="Ora"
-            dateFormat="HH:mm" // Format de 24 ore
+            dateFormat="HH:mm"
             placeholderText="Selectează ora"
           />
         </div>

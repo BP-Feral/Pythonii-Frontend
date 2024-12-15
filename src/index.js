@@ -1,16 +1,22 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
-import App from './App';
-import { AuthProvider } from './components/AuthContext'; // Import the AuthProvider
+import { BrowserRouter } from "react-router-dom";
+import { AuthProvider } from "./components/AuthContext";
+import { EventsProvider } from "./components/EventsContext";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+
 root.render(
-   <React.StrictMode>
-      <AuthProvider> {/* Wrap AuthProvider around BrowserRouter */}
-         <BrowserRouter>
-            <App />
-         </BrowserRouter>
-      </AuthProvider>
-   </React.StrictMode>
+  <React.StrictMode>
+    <AuthProvider>
+      <EventsProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </EventsProvider>
+    </AuthProvider>
+  </React.StrictMode>
 );
