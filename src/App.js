@@ -21,7 +21,7 @@ const App = () => {
         <Route path="/despre-noi" element={<PrivateRoute element={<AboutUsView />} />} />
         <Route path="/administrare" element={<PrivateRoute element={<DashboardView />} />} />
         <Route path="/cereri" element={<PrivateRoute element={<Cereri/>}/>}/>
-
+        <Route path="/CereriProfesorSecretariat" element={<PrivateRoute element={<CereriProfesorSecretariat/>}/>}/>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </EventsProvider>
