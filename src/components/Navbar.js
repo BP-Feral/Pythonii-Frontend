@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Hamburger from "./Hamburger";
+import Hamburger from "./Ham";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/Navbar.css";
 

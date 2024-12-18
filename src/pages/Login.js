@@ -18,7 +18,7 @@ const LoginView = () => {
     setError("");
 
     try {
-      const response = await fetch("http://localhost:8000/auth/login/", {
+      const response = await fetch("http://127.0.0.1:8000/auth/login/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -57,6 +57,7 @@ const LoginView = () => {
                 <input
                   type="text"
                   placeholder=" Email"
+                  className="username-input"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                 />
@@ -65,6 +66,7 @@ const LoginView = () => {
                 <FaLock className="icon" />
                 <input
                   type="password"
+                  className="password-input"
                   placeholder=" Parola"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}

@@ -1,10 +1,8 @@
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import { useEvents } from "../components/EventsContext";
-
-import React from "react";
+import React, { useEffect } from "react";
 import Nav from "../components/Navbar";
 import moment from "moment";
-
 import "../styles/calendar.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
@@ -12,12 +10,15 @@ const localizer = momentLocalizer(moment);
 
 const CalendarView = () => {
   const { events, fetchEvents } = useEvents();
-  fetchEvents();
+
+  // Fetch events only once when the component mounts
+  useEffect(() => {
+    fetchEvents();
+  }, [fetchEvents]);  // This will not run repeatedly now due to `useCallback`
+
   return (
     <div>
-
-      <Nav/>
-
+      <Nav />
       <div style={{ padding: "10px" }}>
         <button className="button-style" onClick={fetchEvents}>
           Refresh Calendar
@@ -51,7 +52,6 @@ const CalendarView = () => {
             max={new Date(new Date().getFullYear(), new Date().getMonth(), 27, 21, 0)}
           />
         </div>
-
       </div>
     </div>
   );

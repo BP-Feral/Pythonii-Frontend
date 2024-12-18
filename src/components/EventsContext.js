@@ -1,15 +1,15 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useCallback } from "react";
 
 const EventsContext = createContext();
-
 
 export const EventsProvider = ({ children }) => {
   const [events, setEvents] = useState([]);
 
-  const fetchEvents = async () => {
+  // Memoize the fetchEvents function to avoid re-creating it on each render
+  const fetchEvents = useCallback(async () => {
     try {
       const token = localStorage.getItem("access_token");
-  
+
       const response = await fetch("http://localhost:8000/exams/", {
         method: "GET",
         headers: {
@@ -30,12 +30,12 @@ export const EventsProvider = ({ children }) => {
         start: new Date(`${exam.scheduled_date}T${exam.scheduled_time}`),
         end: new Date(`${exam.scheduled_date}T${exam.scheduled_time}`),
       }));
-  
+
       setEvents(formattedEvents);
     } catch (error) {
       console.error("Failed to fetch events:", error);
     }
-  };
+  }, []); // Empty dependency array means this function will be memoized and not recreated on every render
 
   const removeEvent = (eventToRemove) => {
     setEvents((prevEvents) => {
