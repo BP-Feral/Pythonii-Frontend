@@ -13,26 +13,23 @@ export default function Nav() {
     setHamburgerOpen(!hamburgerOpen);
   };
 
-  // Check if the user is logged in
   useEffect(() => {
     const token = localStorage.getItem("access_token");
-    setIsLoggedIn(!!token); // Set isLoggedIn based on token existence
+    setIsLoggedIn(!!token);
   }, []);
 
-  // Handle logout
   const handleLogout = async () => {
-    const access_token = localStorage.getItem("access_token"); // Get the token from localStorage
-    const token = localStorage.getItem("refresh_token"); // Get the token from localStorage
+    const access_token = localStorage.getItem("access_token");
+    const token = localStorage.getItem("refresh_token");
 
 
     if (token) {
       try {
-        // Send the logout request with the Authorization header
         const response = await fetch("http://localhost:8000/auth/logout/", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${access_token}`, // Include the token in the Authorization header
+            "Authorization": `Bearer ${access_token}`,
           },
           body:
           JSON.stringify({
@@ -72,6 +69,7 @@ export default function Nav() {
             <li><a href="https://usv.ro/facultati">Facultati🔗</a></li>
             <li><a href="https://usv.ro/international">International🔗</a></li>
             <li><a href="https://usv.ro/studenti">Studenti🔗</a></li>
+            
             <div className="vl"></div>
             
             {isLoggedIn ? (

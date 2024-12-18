@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import DatePicker from "react-datepicker";
-import Nav from "../components/Navbar";
-
 import { professors_data } from "../data/Professors";
 import { rooms_data } from "../data/Rooms";
 import { exams_data } from "../data/Exams";
+
+import DatePicker from "react-datepicker";
+import Nav from "../components/Navbar";
 
 import "react-datepicker/dist/react-datepicker.css";
 import "../styles/Programare.css";
@@ -26,18 +26,23 @@ function ExamView() {
       return;
     }
 
+    const dateString = scheduledTime
+    const date = new Date(dateString);
+    const hours = date.getHours();
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    const formattedTime = `${hours}:${minutes}`
+
     const examData = {
       name,
       exam_type: examType,
       scheduled_date: scheduledDate.toISOString().split('T')[0],
-      scheduledTime: scheduledTime,
+      scheduled_time: formattedTime,
       duration,
       department,
       room,
       proffesor: professor,
     };
     
-
     try {
       const access_token = localStorage.getItem("access_token"); // Get the token from localStorage
       const response = await fetch("http://localhost:8000/exams/", {
@@ -92,7 +97,7 @@ function ExamView() {
             }
           </select>
         </div>
-        
+
         {/* Exam Type */}
         <div className="option-field">
           <label htmlFor="examType">
@@ -138,9 +143,9 @@ function ExamView() {
             onChange={(hour) => setScheduledTime(hour)}
             showTimeSelect
             showTimeSelectOnly
-            timeIntervals={15} // Intervale de selecție a orei (15 minute)
+            timeIntervals={15}
             timeCaption="Ora"
-            dateFormat="HH:mm" // Format de 24 ore
+            dateFormat="HH:mm"
             placeholderText="Selectează ora"
           />
         </div>

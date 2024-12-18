@@ -40,6 +40,17 @@ top: 0;
   border-bottom: 2px solid #0099ff;
 }
 
+.logout-btn {
+  border: none;
+  background: none;
+  color: white;
+  font-size: 16px;
+}
+
+.logout-btn:hover {
+  border-bottom: 2px solid #0099ff;
+}
+
 .search-lang {
   display: flex;
   align-items: center;
