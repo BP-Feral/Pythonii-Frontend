@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import ColoanaCereri from "../components/ColoanaCereri.js";
-import Nav from "../components/Navbar.js";
+import ColoanaCereri from "../components/ColoanaCereri";
+import Nav from "../components/Navbar";
 
 const Cereri = () => {
   const [cereri, setCereri] = useState([]);

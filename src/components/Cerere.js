@@ -1,11 +1,17 @@
 import React from "react";
 
 const Cerere = ({ disciplina, grupa, ziua, interval, conflict }) => {
+  const formatDate = (date) => new Date(date).toLocaleDateString();
+  const formatTime = (time) => {
+    const [hours, minutes] = time.split(":");
+    return `${hours}:${minutes}`;
+  };
+
   return (
     <div
       style={{
         ...styles.cardContainer,
-        backgroundColor: conflict ? "#C74A57" : "#3A5F8A",
+        backgroundColor: conflict === "Conflict" ? "#C74A57" : "#3A5F8A",
       }}
     >
       <div style={styles.content}>
@@ -13,10 +19,10 @@ const Cerere = ({ disciplina, grupa, ziua, interval, conflict }) => {
           <i className="fa fa-calendar" style={styles.icon}></i>
         </div>
         <div style={styles.textContainer}>
-          <p>{disciplina}</p>
-          <p>{grupa}</p>
-          <p>{ziua}</p>
-          <p>{interval}</p>
+          <p><strong>Disciplina:</strong> {disciplina}</p>
+          <p><strong>Grupa:</strong> {grupa}</p>
+          <p><strong>Ziua:</strong> {formatDate(ziua)}</p>
+          <p><strong>Interval:</strong> {formatTime(interval)}</p>
         </div>
       </div>
       <div style={styles.actions}>
