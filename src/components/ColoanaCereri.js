@@ -1,35 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Cerere from "./Cerere";
 
-const ColoanaCereri = ({ title }) => {
-  const [cereri, setCereri] = useState([]);
-
-  useEffect(() => {
-    // Fetch data from the backend
-    const fetchCereri = async () => {
-      try {
-        const response = await fetch("/api/requests"); // Endpoint-ul backend-ului
-        const data = await response.json(); // Transformăm răspunsul în JSON
-        setCereri(data); // Setăm datele în state
-      } catch (error) {
-        console.error("Error fetching requests:", error);
-      }
-    };
-
-    fetchCereri();
-  }, []);
-
+const ColoanaCereri = ({ title, cereri }) => {
   return (
     <div style={styles.column}>
       <h2 style={styles.title}>{title}</h2>
       {cereri.map((cerere) => (
         <Cerere
           key={cerere.id}
-          disciplina={cerere.exam.name} // Numele disciplinei din backend
-          grupa={cerere.user.username} // Username-ul utilizatorului (poate fi interpretat ca grupă)
+          disciplina={cerere.exam.name} // Numele disciplinei
+          grupa={cerere.user.username} // Username-ul utilizatorului
           ziua={cerere.exam.scheduled_date} // Ziua examenului
           interval={cerere.exam.scheduled_time} // Ora examenului
-          conflict={cerere.status === "Rejected" ? "Conflict" : "No Conflict"} // Logică pentru conflict
+          conflict={cerere.status === "Rejected" ? "Conflict" : "No Conflict"} // Statusul cererii
         />
       ))}
     </div>

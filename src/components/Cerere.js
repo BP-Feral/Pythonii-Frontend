@@ -1,17 +1,38 @@
 import React from "react";
 
-const Cerere = ({ disciplina, grupa, ziua, interval, conflict }) => {
-  const formatDate = (date) => new Date(date).toLocaleDateString();
+const Cerere = ({ disciplina_id, grupa, ziua, interval, conflict }) => {
+  // Funcție pentru a formata data
+  const formatDate = (date) => {
+    const parsedDate = new Date(date);
+    // Verificăm dacă data este validă
+    if (isNaN(parsedDate)) {
+      return date; // Dacă data nu este validă, returnăm data primită de la backend
+    }
+    return parsedDate.toLocaleDateString("ro-RO");  // Formatăm data în format românesc
+  };
+
+  // Funcție pentru a formata ora
   const formatTime = (time) => {
+    // Verificăm dacă 'time' este valid
+    if (!time) {
+      return time || "Ora necunoscută";  // Dacă 'time' nu este valid, returnăm "Ora necunoscută"
+    }
+
     const [hours, minutes] = time.split(":");
-    return `${hours}:${minutes}`;
+
+    // Dacă formatul nu este corect, returnăm un mesaj de eroare
+    if (!hours || !minutes) {
+      return "Ora invalidă";
+    }
+
+    return `${hours}:${minutes}`;  // Returnăm ora formatată
   };
 
   return (
     <div
       style={{
         ...styles.cardContainer,
-        backgroundColor: conflict === "Conflict" ? "#C74A57" : "#3A5F8A",
+        backgroundColor: conflict === "Conflict" ? "#C74A57" : "#3A5F8A",  // Colorare pe baza conflictului
       }}
     >
       <div style={styles.content}>
@@ -19,8 +40,8 @@ const Cerere = ({ disciplina, grupa, ziua, interval, conflict }) => {
           <i className="fa fa-calendar" style={styles.icon}></i>
         </div>
         <div style={styles.textContainer}>
-          <p><strong>Disciplina:</strong> {disciplina}</p>
-          <p><strong>Grupa:</strong> {grupa}</p>
+          <p><strong>Disciplina ID:</strong> {disciplina_id || "N/A"}</p> {/* Aici am înlocuit cu disciplina_id */}
+          <p><strong>Grupa:</strong> {grupa || "N/A"}</p>
           <p><strong>Ziua:</strong> {formatDate(ziua)}</p>
           <p><strong>Interval:</strong> {formatTime(interval)}</p>
         </div>

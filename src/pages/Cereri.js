@@ -10,15 +10,21 @@ const Cereri = () => {
   useEffect(() => {
     const fetchRequests = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/request/", {
+        const response = await fetch("http://localhost:8000/requests/", {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`, // Include token-ul de autentificare
+            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
           },
         });
 
         if (response.ok) {
           const data = await response.json();
-          setCereri(data);
+          console.log("Cereri primite:", data);  // Verificăm datele primite de la API
+
+          // Filtrăm cererile pentru a include doar cele cu status "Pending" sau "Approved"
+          const filteredCereri = data.filter(
+            (cerere) => cerere.status === "Pending" || cerere.status === "Approved"
+          );
+          setCereri(filteredCereri);
         } else {
           setError("Nu s-au putut prelua cererile. Verifică serverul.");
         }
@@ -31,10 +37,6 @@ const Cereri = () => {
 
     fetchRequests();
   }, []);
-
-  // Împarte cererile în funcție de status (dacă este nevoie)
-  const cereriTitular = cereri.filter((cerere) => cerere.request_type === "ScheduleRequest");
-  const cereriAsistent = cereri.filter((cerere) => cerere.request_type === "RescheduleRequest");
 
   return (
     <div>
@@ -49,8 +51,7 @@ const Cereri = () => {
           <p style={styles.message}>{error}</p>
         ) : (
           <div style={styles.columnsContainer}>
-            <ColoanaCereri title="Titular" cereri={cereriTitular} />
-            <ColoanaCereri title="Asistent" cereri={cereriAsistent} />
+            <ColoanaCereri title="Toate Cererile" cereri={cereri} /> {/* Afișăm doar cererile filtrate */}
           </div>
         )}
         {!loading && !error && cereri.length === 0 && (
@@ -74,7 +75,7 @@ const styles = {
   },
   columnsContainer: {
     display: "flex",
-    flexDirection: "row",
+    flexDirection: "column",  // Modificăm pentru a afișa toate cererile într-o coloană
     gap: "20px",
     justifyContent: "center",
   },
