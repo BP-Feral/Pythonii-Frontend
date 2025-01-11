@@ -18,11 +18,13 @@ const Cereri = () => {
 
         if (response.ok) {
           const data = await response.json();
-          console.log("Cereri primite:", data);  // Verificăm datele primite de la API
+          console.log("Cereri primite:", data);
 
-          // Filtrăm cererile pentru a include doar cele cu status "Pending" sau "Approved"
+          // Filtrăm cererile pentru a include doar cele cu status "Pending" (pentru profesori)
+          // sau "ApprovedByProfessor" (pentru secretariat)
           const filteredCereri = data.filter(
-            (cerere) => cerere.status === "Pending" || cerere.status === "Approved"
+            (cerere) =>
+              cerere.status === "Pending" || cerere.status === "ApprovedByProfessor"
           );
           setCereri(filteredCereri);
         } else {

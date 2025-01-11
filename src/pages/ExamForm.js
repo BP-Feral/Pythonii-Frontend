@@ -18,44 +18,47 @@ function ExamView() {
   const [duration, setDuration] = useState(1);
   const [department, setDepartment] = useState("");
   const [room, setRoom] = useState("");
-  const [professor, setProfessor] = useState("");
+  const [proffesor, setProfessor] = useState("");
 
   const handleSubmit = async () => {
-    if (!name || !examType || !scheduledDate || !duration || !department || !room || !professor || !scheduledTime) {
+    if (!name || !examType || !scheduledDate || !duration || !department || !room || !proffesor || !scheduledTime) {
       alert("All fields are required!");
       return;
     }
-
-    const dateString = scheduledTime
+  
+    const dateString = scheduledTime;
     const date = new Date(dateString);
     const hours = date.getHours();
     const minutes = date.getMinutes().toString().padStart(2, '0');
-    const formattedTime = `${hours}:${minutes}`
-
-    const examData = {
-      name,
+    const formattedTime = `${hours}:${minutes}`;
+  
+    // Crearea unei cereri pentru examen
+    const requestData = {
+      exam_name: name,
       exam_type: examType,
       scheduled_date: scheduledDate.toISOString().split('T')[0],
       scheduled_time: formattedTime,
       duration,
       department,
       room,
-      proffesor: professor,
+      proffesor,
+      status: "Pending",  // Inițial cererea este în stare "Pending"
     };
-    
+  
     try {
-      const access_token = localStorage.getItem("access_token"); // Get the token from localStorage
-      const response = await fetch("http://localhost:8000/exams/", {
+      const access_token = localStorage.getItem("access_token");
+      const response = await fetch("http://localhost:8000/requests/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${access_token}`, // Include the token in the Authorization header
+          "Authorization": `Bearer ${access_token}`,
         },
-        body: JSON.stringify(examData),
+        body: JSON.stringify(requestData),
       });
-
+  
       if (response.ok) {
-        alert("Exam added successfully!");
+        alert("Cererea a fost trimisă cu succes!");
+        // Resetați câmpurile formularului
         setName("");
         setExamType("");
         setScheduledDate(null);
@@ -65,13 +68,14 @@ function ExamView() {
         setRoom("");
         setProfessor("");
       } else {
-        alert("Error while sending exam. Please check input data.");
+        alert("Error while sending the request. Please check input data.");
       }
     } catch (error) {
       console.error("Error:", error);
-      alert(error);
+      alert("Eroare la trimiterea cererii. Te rugăm să încerci din nou.");
     }
   };
+  
 
   return (
     <div>
@@ -205,10 +209,10 @@ function ExamView() {
 
         {/* Professor */}
         <div className="option-field">
-          <label htmlFor="professor">Profesor:</label>
+          <label htmlFor="proffesor">Profesor:</label>
           <select
-            id="professor"
-            value={professor}
+            id="proffesor"
+            value={proffesor}
             onChange={(e) => setProfessor(e.target.value)}
           >
             <option value="">Selecteaza un profesor</option>
