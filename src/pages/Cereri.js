@@ -56,9 +56,6 @@ const Cereri = () => {
             <ColoanaCereri title="Toate Cererile" cereri={cereri} /> {/* Afișăm doar cererile filtrate */}
           </div>
         )}
-        {!loading && !error && cereri.length === 0 && (
-          <p style={styles.message}>Nu există cereri disponibile.</p>
-        )}
       </div>
     </div>
   );
