@@ -99,21 +99,29 @@ const ColoanaCereri = ({ title }) => {
           <div key={cerere.id} className="cerere">
             {/* Afișează informațiile examenului dacă există */}
             <p>Examen: {cerere.exam_details ? cerere.exam_details.name : "Niciun examen asociat"}</p>
-            <p>Profesor: {cerere.destinatar}</p>
-            <p>Status: {cerere.status}</p>
-
+            <p>Sala: {cerere.exam_details ? cerere.exam_details.room : "Niciun sala asociata"}</p>
+            <p>
+              {cerere.exam_details ? (
+                <>
+                  <span>Ora: {cerere.exam_details.scheduled_time}</span><br />
+                  <span>Data: {cerere.exam_details.scheduled_date}</span>
+                </>
+              ) : (
+                <span>Data și ora nu sunt încă disponibile</span>
+              )}
+          </p>
             {/* Butoane de aprobare */}
             {cerere.status === "Pending" && (
               <div>
-                <button onClick={() => handleApproveProfessor(cerere.id)}>Aprobă Profesor</button>
-                <button onClick={() => handleReject(cerere.id, "professor")}>Respinge Profesor</button>
+                <button onClick={() => handleApproveProfessor(cerere.id)}>Aprobă Cerere</button>
+                <button onClick={() => handleReject(cerere.id, "professor")}>Respinge Cerere</button>
               </div>
             )}
 
             {cerere.status === "ApprovedByProfessor" && (
               <div>
-                <button onClick={() => handleApproveSecretary(cerere.id, cerere.exam_details)}>Aprobă Secretariat</button>
-                <button onClick={() => handleReject(cerere.id, "secretary")}>Respinge Secretariat</button>
+                <button onClick={() => handleApproveSecretary(cerere.id, cerere.exam_details)}>Aprobă Cerere</button>
+                <button onClick={() => handleReject(cerere.id, "secretary")}>Respinge Cerere</button>
               </div>
             )}
           </div>
