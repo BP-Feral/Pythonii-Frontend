@@ -1,14 +1,10 @@
-import React, { useState } from "react";
-import { professors_data } from "../data/Professors";
-import { rooms_data } from "../data/Rooms";
+import React, { useState, useEffect } from "react";
 import { exams_data } from "../data/Exams";
-
 import DatePicker from "react-datepicker";
 import Nav from "../components/Navbar";
 
 import "react-datepicker/dist/react-datepicker.css";
 import "../styles/Programare.css";
-
 
 function ExamView() {
   const [name, setName] = useState("");
@@ -19,20 +15,70 @@ function ExamView() {
   const [department, setDepartment] = useState("");
   const [room, setRoom] = useState("");
   const [proffesor, setProfessor] = useState("");
+  const [professors_data, setProfessorsData] = useState([]);
+  const [rooms_data, setRoomsData] = useState([]); // State for rooms data
+
+  useEffect(() => {
+    // Fetch professors from API
+    const fetchProfessors = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/professors/", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${localStorage.getItem("access_token")}`,
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setProfessorsData(data);
+        } else {
+          console.error("Failed to fetch professors data");
+        }
+      } catch (error) {
+        console.error("Error fetching professors:", error);
+      }
+    };
+
+    // Fetch rooms from API
+    const fetchRooms = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/rooms/", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${localStorage.getItem("access_token")}`,
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setRoomsData(data); // Set fetched rooms data
+        } else {
+          console.error("Failed to fetch rooms data");
+        }
+      } catch (error) {
+        console.error("Error fetching rooms:", error);
+      }
+    };
+
+    fetchProfessors();
+    fetchRooms(); // Fetch rooms on component mount
+  }, []);
 
   const handleSubmit = async () => {
     if (!name || !examType || !scheduledDate || !duration || !department || !room || !proffesor || !scheduledTime) {
       alert("All fields are required!");
       return;
     }
-  
+
     const dateString = scheduledTime;
     const date = new Date(dateString);
     const hours = date.getHours();
     const minutes = date.getMinutes().toString().padStart(2, '0');
     const formattedTime = `${hours}:${minutes}`;
-  
-    // Crearea unei cereri pentru examen
+
     const requestData = {
       exam_name: name,
       exam_type: examType,
@@ -42,9 +88,9 @@ function ExamView() {
       department,
       room,
       proffesor,
-      status: "Pending",  // Inițial cererea este în stare "Pending"
+      status: "Pending",  // Initial request status
     };
-  
+
     try {
       const access_token = localStorage.getItem("access_token");
       const response = await fetch("http://localhost:8000/requests/", {
@@ -55,10 +101,10 @@ function ExamView() {
         },
         body: JSON.stringify(requestData),
       });
-  
+
       if (response.ok) {
         alert("Cererea a fost trimisă cu succes!");
-        // Resetați câmpurile formularului
+        // Reset form fields
         setName("");
         setExamType("");
         setScheduledDate(null);
@@ -75,7 +121,6 @@ function ExamView() {
       alert("Eroare la trimiterea cererii. Te rugăm să încerci din nou.");
     }
   };
-  
 
   return (
     <div>
@@ -191,16 +236,15 @@ function ExamView() {
         <div className="option-field">
           <label htmlFor="room">Sala:</label>
           <select
-            type="text"
             id="room"
             value={room}
             onChange={(e) => setRoom(e.target.value)}
           >
-            <option value="">Selecteaza sala</option>
+            <option value="">Selectează sala</option>
             {
               rooms_data.map((_room) => (
-                <option key={_room.id} value={_room.name}>
-                  {_room.name}
+                <option key={_room.id} value={_room.short_name}>
+                  {`${_room.short_name}`} {/* Display room short name */}
                 </option>
               ))
             }
@@ -218,8 +262,8 @@ function ExamView() {
             <option value="">Selecteaza un profesor</option>
             {
               professors_data.map((_professor) => (
-                <option key={_professor.id} value={_professor.name}>
-                  {_professor.name}
+                <option key={_professor.id} value={_professor.id}>
+                  {`${_professor.first_name} ${_professor.last_name}`} {/* Full name */}
                 </option>
               ))
             }
