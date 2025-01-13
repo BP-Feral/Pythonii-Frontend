@@ -16,12 +16,12 @@ const App = () => {
       <Routes>
         <Route path="/" element={<LoginView />} />
         {/* Protected routes */}
-        <Route path="/calendar" element={<PrivateRoute element={<CalendarView />} />} />
-        <Route path="/programare" element={<PrivateRoute element={<ExamView />} />} />
-        <Route path="/despre-noi" element={<PrivateRoute element={<AboutUsView />} />} />
-        <Route path="/administrare" element={<PrivateRoute element={<DashboardView />} />} />
-        <Route path="/cereri" element={<PrivateRoute element={<Cereri/>}/>}/>
-        <Route path="/RequestsPage" element={<PrivateRoute element={<RequestsPage/>}/>}/>
+        <Route path="/calendar" element={<CalendarView />} />
+        <Route path="/programare" element={<ExamView />} />
+        <Route path="/despre-noi" element={<AboutUsView />} />
+        <Route path="/administrare" element={<DashboardView />} />
+        <Route path="/cereri" element={<Cereri/>}/>
+        <Route path="/RequestsPage" element={<RequestsPage/>}/>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
   );
