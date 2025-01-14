@@ -20,8 +20,8 @@ const App = () => {
         <Route path="/programare" element={<PrivateRoute element={<ExamView />} />} />
         <Route path="/despre-noi" element={<PrivateRoute element={<AboutUsView />} />} />
         <Route path="/administrare" element={<PrivateRoute element={<DashboardView />} />} />
-        <Route path="/cereri" element={<PrivateRoute element={<Cereri/>}/>}/>
-        <Route path="/RequestsPage" element={<PrivateRoute element={<RequestsPage/>}/>}/>
+        <Route path="/cereri" element={<PrivateRoute element={<Cereri/>}/>} />
+        <Route path="/RequestsPage" element={<PrivateRoute element={<RequestsPage/>}/>} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
   );

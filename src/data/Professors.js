@@ -1,4 +1,4 @@
-export const professors_data = [
+export const professor_data = [
     { id: 1, name: "Alexa  Ștefan "},
     { id: 2, name: "Andrei Iulian"},
     { id: 3, name: "Anton  Ciprian"},
