@@ -110,6 +110,8 @@ const ColoanaCereri = ({ title }) => {
                 <span>Data și ora nu sunt încă disponibile</span>
               )}
           </p>
+            {/* Afișează profesorul */}
+            <p>Profesor: {cerere.destinatar ? cerere.destinatar : "Niciun profesor asociat"}</p>
             {/* Butoane de aprobare */}
             {cerere.status === "Pending" && (
               <div>

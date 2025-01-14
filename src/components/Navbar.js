@@ -6,6 +6,7 @@ import "../styles/Navbar.css";
 export default function Nav() {
   const [hamburgerOpen, setHamburgerOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userRole, setUserRole] = useState(null); // Stare pentru rol
   const navigate = useNavigate();
 
   // Toggle Hamburger menu
@@ -15,13 +16,25 @@ export default function Nav() {
 
   useEffect(() => {
     const token = localStorage.getItem("access_token");
+    if (token) {
+      const payloadBase64 = token.split(".")[1]; // Partea de payload
+      const payload = JSON.parse(atob(payloadBase64)); // Decodare Base64
+      console.log(payload);
+
+      // Setare rol utilizator pe baza payload
+      if (payload.user_id <= 1843) 
+        setUserRole("profesor");
+      if (payload.user_id > 1843) 
+        setUserRole("student");
+      if (payload.user_id === 1845)
+        setUserRole("all");
+    }
     setIsLoggedIn(!!token);
   }, []);
 
   const handleLogout = async () => {
     const access_token = localStorage.getItem("access_token");
     const token = localStorage.getItem("refresh_token");
-
 
     if (token) {
       try {
@@ -31,10 +44,9 @@ export default function Nav() {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${access_token}`,
           },
-          body:
-          JSON.stringify({
-            token
-          })
+          body: JSON.stringify({
+            token,
+          }),
         });
 
         if (response.ok) {
@@ -44,7 +56,6 @@ export default function Nav() {
           setIsLoggedIn(false);
           navigate("/"); // Redirect to login page after logout
         } else {
-          // Handle the error if the response is not OK
           console.error("Logout failed");
         }
       } catch (error) {
@@ -69,14 +80,14 @@ export default function Nav() {
             <li><a href="https://usv.ro/facultati">Facultati🔗</a></li>
             <li><a href="https://usv.ro/international">International🔗</a></li>
             <li><a href="https://usv.ro/studenti">Studenti🔗</a></li>
-            
+
             <div className="vl"></div>
-            
+
             {isLoggedIn ? (
               <>
                 <li><Link to="/calendar">Calendar📅</Link></li>
-                <li><Link to="/programare">Programare📅</Link></li>
-                <li><Link to="/cereri">Cereri</Link></li>
+                {(userRole === "profesor" || userRole === "all") && <li><Link to="/cereri">Cereri</Link></li>}
+                {(userRole === "student" || userRole === "all")&& <li><Link to="/programare">Programare📅</Link></li>}
                 <li><Link to="/despre-noi">Despre Noi📄</Link></li>
 
                 <div className="vl"></div>
@@ -111,7 +122,8 @@ export default function Nav() {
             {isLoggedIn && (
               <>
                 <li><Link to="/calendar">Calendar📅</Link></li>
-                <li><Link to="/programare">Programare📅</Link></li>
+                {userRole !== "profesor" && <li><Link to="/cereri">Cereri</Link></li>}
+                {userRole === "student" && <li><Link to="/programare">Programare📅</Link></li>}
                 <li><Link to="/despre-noi">Despre Noi📄</Link></li>
                 <li>
                   <button className="logout-btn" onClick={handleLogout}>
