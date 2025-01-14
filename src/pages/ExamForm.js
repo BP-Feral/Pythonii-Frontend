@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { exams_data } from "../data/Exams";
-import { room_data } from "../data/Rooms";
-import { professor_data } from "../data/Professors"
 import DatePicker from "react-datepicker";
 import Nav from "../components/Navbar";
 
@@ -210,7 +208,6 @@ function ExamView() {
             type="number"
             id="duration"
             min="1"
-            max="4"
             value={duration}
             onChange={(e) => setDuration(parseInt(e.target.value, 10) || 1)}
           />
@@ -245,9 +242,9 @@ function ExamView() {
           >
             <option value="">Selectează sala</option>
             {
-              room_data.map((_room) => (
-                <option key={_room.id} value={_room.name}>
-                  {_room.name}
+              rooms_data.map((_room) => (
+                <option key={_room.id} value={_room.short_name}>
+                  {`${_room.short_name}`} {/* Display room short name */}
                 </option>
               ))
             }
@@ -264,9 +261,9 @@ function ExamView() {
           >
             <option value="">Selecteaza un profesor</option>
             {
-              professor_data.map((_professor) => (
+              professors_data.map((_professor) => (
                 <option key={_professor.id} value={_professor.id}>
-                  {`${_professor.name} `} {/* Full name */}
+                  {`${_professor.first_name} ${_professor.last_name}`} {/* Full name */}
                 </option>
               ))
             }
