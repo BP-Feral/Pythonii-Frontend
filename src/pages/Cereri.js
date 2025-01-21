@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import ColoanaCereri from "../components/ColoanaCereri";
 import Nav from "../components/Navbar";
+import '../styles/Cereri.css';
+
 
 const Cereri = () => {
   const [cereri, setCereri] = useState([]);
@@ -41,48 +43,24 @@ const Cereri = () => {
   }, []);
 
   return (
-    <div>
-      <Nav />
-      <div style={styles.pageContainer}>
-        <header style={styles.header}>
-          <h1>Planificări Examene iarnă 2024-2025</h1>
-        </header>
-        {loading ? (
-          <p style={styles.message}>Se încarcă cererile...</p>
-        ) : error ? (
-          <p style={styles.message}>{error}</p>
-        ) : (
-          <div style={styles.columnsContainer}>
-            <ColoanaCereri title="Toate Cererile" cereri={cereri} /> {/* Afișăm doar cererile filtrate */}
-          </div>
-        )}
+    <div className="cereri-page">
+  <Nav />
+  <div className="page-container">
+    <header className="page-header">
+      <h1>Planificări Examene iarnă 2024-2025</h1>
+    </header>
+    {loading ? (
+      <p className="page-message">Se încarcă cererile...</p>
+    ) : error ? (
+      <p className="page-message">{error}</p>
+    ) : (
+      <div className="columns-container">
+        <ColoanaCereri title="Toate Cererile" cereri={cereri} />
       </div>
-    </div>
+    )}
+  </div>
+</div>
   );
-};
-
-const styles = {
-  pageContainer: {
-    backgroundColor: "#243B55",
-    color: "#ffffff",
-    minHeight: "100vh",
-    padding: "20px",
-  },
-  header: {
-    textAlign: "center",
-    marginBottom: "30px",
-  },
-  columnsContainer: {
-    display: "flex",
-    flexDirection: "column",  // Modificăm pentru a afișa toate cererile într-o coloană
-    gap: "20px",
-    justifyContent: "center",
-  },
-  message: {
-    textAlign: "center",
-    fontSize: "18px",
-    color: "#f8d7da",
-  },
 };
 
 export default Cereri;

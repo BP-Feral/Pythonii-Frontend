@@ -1,0 +1,30 @@
+/* CereriPage.css */
+
+/* Stiluri pentru întreaga pagină */
+.cereri-page .page-container {
+  background-color: #243B55;
+  color: #ffffff;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* Stil pentru header */
+.cereri-page .page-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* Stil pentru coloane */
+.cereri-page .columns-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* Mesajele de încărcare și eroare */
+.cereri-page .page-message {
+  text-align: center;
+  font-size: 18px;
+  color: #f8d7da;
+}

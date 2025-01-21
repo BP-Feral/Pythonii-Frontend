@@ -1,98 +1,144 @@
-body {
+/* Folosește selectorul ID pentru a aplica stiluri doar pe pagina specifică */
+#exam-planning-page {
   font-family: Arial, sans-serif;
-  background-color: #f8f9fa;
-  margin: 0;
-  padding: 0;
+  background-color: #f4f7fc;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  max-width: 1200px; /* Setează o lățime maximă pentru conținut */
+  margin: 0 auto; /* Centrează formularul pe pagină */
 }
 
-.exam-planner-div {
-  max-width: 900px;
-  margin: 40px auto;
-  background-color: #ffffff;
-  padding: 30px 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-}
-
-.exam-planner-div > div {
-  display: flex;
-  flex-direction: column;
-}
-
-input, select, .react-datepicker-wrapper {
-  padding: 10px;
-  margin-top: 5px;
-  border: 1px solid #ced4da;
-  border-radius: 5px;
-  font-size: 16px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-label {
-  font-weight: bold;
-  margin-bottom: 5px;
-  color: #495057;
-}
-
-.react-datepicker-wrapper {
-  display: block;
-}
-
-.react-datepicker__input-container input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ced4da;
-  border-radius: 5px;
-}
-
-/* Full-width button */
-.addExamenButton {
-  grid-column: span 2;
-  padding: 10px 20px;
-  background-color: #007BFF;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
+/* Titlul */
+#exam-planning-page h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
   text-align: center;
-  margin-top: 10px;
+}
+
+/* Stilul pentru fiecare câmp de opțiuni */
+#exam-planning-page .option-field {
+  margin-bottom: 20px;
+}
+
+/* Stilul pentru etichete */
+#exam-planning-page label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  display: block;
+  margin-bottom: 8px;
+}
+
+/* Selecturile - toate vor arăta la fel */
+#exam-planning-page select {
+  width: 100%; /* Lățimea completă pentru fiecare select */
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: #fff;
+  color: #333;
   transition: background-color 0.3s ease;
+  margin-bottom: 10px; /* Adaugă un mic spațiu între câmpuri */
 }
 
-.addExamenButton:hover {
-  background-color: #0056b3;
+/* Focus pe selecturi */
+#exam-planning-page select:focus {
+  border-color: #6c8eae;
+  outline: none;
+  background-color: #f1f9fc;
 }
 
-.option-field {
-  width: 40%; /* or any fixed width */
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 20px;
+/* Opțiuni pentru toate selecturile cu culori alternative */
+#exam-planning-page select option:nth-child(odd) {
+  background-color: #f0f0f0;
 }
 
-.option-button {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
+#exam-planning-page select option:nth-child(even) {
+  background-color: #e0e0e0;
 }
 
-h2 {
-  display: flex;
-  justify-content: center;
+#exam-planning-page select option:hover {
+  background-color: #d1e1f3;
 }
-/* Responsive Design */
+
+/* Butoanele */
+#exam-planning-page .addExamenButton {
+  background-color: #4CAF50; /* Verde frumos */
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  width: 100%; /* Butonul va ocupa întreaga lățime */
+  margin-top: 20px; /* Adaugă spațiu deasupra butonului */
+}
+
+#exam-planning-page .addExamenButton:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+}
+
+#exam-planning-page .addExamenButton:active {
+  background-color: #3e8e41;
+}
+
+/* Stilul pentru datele selectabile */
+#exam-planning-page .react-datepicker-wrapper {
+  width: 100%;
+}
+
+#exam-planning-page .react-datepicker__input-container input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+#exam-planning-page .react-datepicker__input-container input:focus {
+  border-color: #6c8eae;
+  outline: none;
+  background-color: #f1f9fc;
+}
+
+/* Câmpuri pentru durată și inputuri */
+#exam-planning-page input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  color: #333;
+}
+
+#exam-planning-page input[type="number"]:focus {
+  border-color: #6c8eae;
+  outline: none;
+  background-color: #f1f9fc;
+}
+
+/* Responsivitate - pentru dispozitive mai mici */
 @media (max-width: 768px) {
-  .exam-planner-div {
-    grid-template-columns: 1fr;
-    padding: 20px;
+  #exam-planning-page {
+    padding: 15px;
   }
 
-  .addExamenButton {
-    grid-column: span 1;
+  #exam-planning-page .option-field {
+    margin-bottom: 15px;
+  }
+
+  #exam-planning-page .addExamenButton {
+    width: 100%; /* Butonul va ocupa întreaga lățime și pe mobil */
+  }
+
+  /* Câmpurile select și inputuri vor păstra stilul uniform pe mobil */
+  #exam-planning-page select,
+  #exam-planning-page input[type="number"] {
+    width: 100%;
   }
 }

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "../styles/ColoanaCereri.css";
 
 const ColoanaCereri = ({ title }) => {
   const [cereri, setCereri] = useState([]);  // Inițializare ca un array gol
@@ -111,45 +112,43 @@ const ColoanaCereri = ({ title }) => {
 
   return (
     <div className="columna-cereri">
-      <h3>{title}</h3>
-      {cereri.length > 0 ? (
-        cereri.map((cerere) => (
-          <div key={cerere.id} className="cerere">
-            {/* Afișează informațiile examenului dacă există */}
-            <p>Examen: {cerere.exam_details ? cerere.exam_details.name : "Niciun examen asociat"}</p>
-            <p>Sala: {cerere.exam_details ? cerere.exam_details.room : "Niciun sala asociata"}</p>
-            <p>
-              {cerere.exam_details ? (
-                <>
-                  <span>Ora: {cerere.exam_details.scheduled_time}</span><br />
-                  <span>Data: {cerere.exam_details.scheduled_date}</span>
-                </>
-              ) : (
-                <span>Data și ora nu sunt încă disponibile</span>
-              )}
-          </p>
-            {/* Afișează profesorul */}
-            <p>Profesor: {cerere.destinatar ? cerere.destinatar : "Niciun profesor asociat"}</p>
-            {/* Butoane de aprobare */}
-            {cerere.status === "Pending" && (
-              <div>
-                <button onClick={() => handleApproveProfessor(cerere.id)}>Aprobă Cerere</button>
-                <button onClick={() => handleRejectProfessor(cerere.id, "professor")}>Respinge Cerere</button>
-              </div>
-            )}
-
-            {cerere.status === "ApprovedByProfessor" && (
-              <div>
-                <button onClick={() => handleApproveSecretary(cerere.id, cerere.exam_details)}>Aprobă Cerere</button>
-                <button onClick={() => handleReject(cerere.id, "secretary")}>Respinge Cerere</button>
-              </div>
-            )}
+  <h3>{title}</h3>
+  {cereri.length > 0 ? (
+    cereri.map((cerere) => (
+      <div key={cerere.id} className="cerere">
+        {/* Conținutul cererii */}
+        <p>Examen: {cerere.exam_details ? cerere.exam_details.name : "Niciun examen asociat"}</p>
+        <p>Sala: {cerere.exam_details ? cerere.exam_details.room : "Niciun sala asociata"}</p>
+        <p>
+          {cerere.exam_details ? (
+            <>
+              <span>Ora: {cerere.exam_details.scheduled_time}</span><br />
+              <span>Data: {cerere.exam_details.scheduled_date}</span>
+            </>
+          ) : (
+            <span>Data și ora nu sunt încă disponibile</span>
+          )}
+        </p>
+        <p>Profesor: {cerere.destinatar ? cerere.destinatar : "Niciun profesor asociat"}</p>
+        {cerere.status === "Pending" && (
+          <div>
+            <button onClick={() => handleApproveProfessor(cerere.id)}>Aprobă Cerere</button>
+            <button onClick={() => handleRejectProfessor(cerere.id, "professor")}>Respinge Cerere</button>
           </div>
-        ))
-      ) : (
-        <p>Nu există cereri disponibile.</p> // Mesaj de eroare dacă nu există cereri
-      )}
-    </div>
+        )}
+        {cerere.status === "ApprovedByProfessor" && (
+          <div>
+            <button onClick={() => handleApproveSecretary(cerere.id, cerere.exam_details)}>Aprobă Cerere</button>
+            <button onClick={() => handleReject(cerere.id, "secretary")}>Respinge Cerere</button>
+          </div>
+        )}
+      </div>
+    ))
+  ) : (
+    <p>Nu există cereri disponibile.</p>
+  )}
+</div>
+
   );
 };
 

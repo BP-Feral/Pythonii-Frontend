@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { exams_data } from "../data/Exams";
-import { room_data } from "../data/Rooms";
-import { professor_data } from "../data/Professors"
 import DatePicker from "react-datepicker";
 import Nav from "../components/Navbar";
 
@@ -18,7 +16,7 @@ function ExamView() {
   const [room, setRoom] = useState("");
   const [proffesor, setProfessor] = useState("");
   const [professors_data, setProfessorsData] = useState([]);
-  const [rooms_data, setRoomsData] = useState([]); // State for rooms data
+  const [room_data, setRoomsData] = useState([]); // State for rooms data
 
   useEffect(() => {
     // Fetch professors from API
@@ -125,7 +123,7 @@ function ExamView() {
   };
 
   return (
-    <div>
+    <div id="exam-planning-page">
       <Nav />
       <h2>Planificare Examen</h2>
       <div>
@@ -247,7 +245,7 @@ function ExamView() {
             {
               room_data.map((_room) => (
                 <option key={_room.id} value={_room.name}>
-                  {_room.name}
+                  {_room.short_name}
                 </option>
               ))
             }
@@ -266,8 +264,8 @@ function ExamView() {
             {
               professors_data.map((_professor) => (
                 <option key={_professor.id} value={_professor.id}>
-                  {`${_professor.first_name} ${_professor.last_name}`} {/* Full name */}
-                  </option>
+                  {`${_professor.first_name} ${_professor.last_name}`} {/* Full name */ }
+                </option>
               ))
             }
           </select>
@@ -281,7 +279,7 @@ function ExamView() {
         </div>
 
       </div>
-    </div>
+</div>
   );
 }
 

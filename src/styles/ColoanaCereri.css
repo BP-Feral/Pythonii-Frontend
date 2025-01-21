@@ -1,0 +1,99 @@
+/* ColoanaCereri.css */
+
+/* Container principal */
+.columna-cereri {
+  font-family: 'Arial', sans-serif;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 600px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Titlul */
+.columna-cereri h3 {
+  font-size: 24px;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 2px solid #4caf50;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+/* Fiecare cerere */
+.columna-cereri .cerere {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.columna-cereri .cerere:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Text cerere */
+.columna-cereri .cerere p {
+  font-size: 16px;
+  color: #555;
+  margin: 5px 0;
+}
+
+.columna-cereri .cerere span {
+  color: #4caf50;
+  font-weight: bold;
+}
+
+/* Butoane - doar pentru ColoanaCereri */
+.columna-cereri button {
+  padding: 10px 15px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.columna-cereri button:hover {
+  transform: scale(1.05);
+}
+
+.columna-cereri button:active {
+  transform: scale(0.95);
+}
+
+/* Buton aprobare */
+.columna-cereri button:first-of-type {
+  background-color: #4caf50;
+  color: white;
+}
+
+.columna-cereri button:first-of-type:hover {
+  background-color: #43a047;
+}
+
+/* Buton respingere */
+.columna-cereri button:last-of-type {
+  background-color: #f44336;
+  color: white;
+}
+
+.columna-cereri button:last-of-type:hover {
+  background-color: #e53935;
+}
+
+/* Mesaj "Nu există cereri disponibile" */
+.columna-cereri p {
+  text-align: center;
+  font-size: 18px;
+  color: #777;
+  margin-top: 20px;
+}
