@@ -264,10 +264,10 @@ function ExamView() {
           >
             <option value="">Selecteaza un profesor</option>
             {
-              professor_data.map((_professor) => (
+              professors_data.map((_professor) => (
                 <option key={_professor.id} value={_professor.id}>
-                  {`${_professor.name} `} {/* Full name */}
-                </option>
+                  {`${_professor.first_name} ${_professor.last_name}`} {/* Full name */}
+                  </option>
               ))
             }
           </select>

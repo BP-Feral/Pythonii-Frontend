@@ -54,6 +54,24 @@ const ColoanaCereri = ({ title }) => {
       alert("Eroare la respingerea cererii.");
     }
   };
+  const handleRejectProfessor = async (requestId) => {
+    const response = await fetch(`http://localhost:8000/requests/approveProfessor/${requestId}/`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+      },
+      body: JSON.stringify({ action: "reject" }),
+    });
+  
+    if (response.ok) {
+      alert("Cererea a fost respinsă de profesor!");
+      setCereri(cereri.filter((cerere) => cerere.id !== requestId)); // Elimină cererea respinsă din UI
+    } else {
+      alert("Eroare la respingerea cererii.");
+    }
+  };
+  
 
   // Funcția pentru a aproba profesorul
   const handleApproveProfessor = async (requestId) => {
@@ -110,11 +128,13 @@ const ColoanaCereri = ({ title }) => {
                 <span>Data și ora nu sunt încă disponibile</span>
               )}
           </p>
+            {/* Afișează profesorul */}
+            <p>Profesor: {cerere.destinatar ? cerere.destinatar : "Niciun profesor asociat"}</p>
             {/* Butoane de aprobare */}
             {cerere.status === "Pending" && (
               <div>
                 <button onClick={() => handleApproveProfessor(cerere.id)}>Aprobă Cerere</button>
-                <button onClick={() => handleReject(cerere.id, "professor")}>Respinge Cerere</button>
+                <button onClick={() => handleRejectProfessor(cerere.id, "professor")}>Respinge Cerere</button>
               </div>
             )}
 
