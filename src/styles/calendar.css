@@ -4,6 +4,19 @@
   border-radius: 5px;
   padding: 5px;
   font-size: 12px;
+  white-space: normal;
+  overflow: break-word;
+  text-overflow: visible;
+}
+
+.rbc-agenda-content .rbc-agenda-event-cell {
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+.rbc-agenda-content {
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 .rbc-toolbar {
@@ -17,7 +30,7 @@
 }
 
 .rbc-timeslot-group {
-  min-height: 80px;
+  min-height: 100px;
 }
 
 .calendar-container-style {
@@ -30,6 +43,7 @@
   right: 2%;
   width: 70%;
   height: 80vh;
+  overflow: visible;
 }
 
 .agenda-style {
@@ -37,6 +51,7 @@
   left: 2%;
   width: 26%;
   height: 80vh;
+  overflow-y: auto;
 }
 
 .button-style {
