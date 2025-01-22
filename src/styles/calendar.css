@@ -28,14 +28,14 @@
 .week-style {
   position: absolute;
   right: 2%;
-  width: 82%;
+  width: 70%;
   height: 80vh;
 }
 
 .agenda-style {
   position: absolute;
   left: 2%;
-  width: 13%;
+  width: 26%;
   height: 80vh;
 }
 
