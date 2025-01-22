@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../styles/ColoanaCereri.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ColoanaCereri = ({ title }) => {
   const [cereri, setCereri] = useState([]);  // Inițializare ca un array gol
@@ -26,7 +28,16 @@ const ColoanaCereri = ({ title }) => {
 
           setCereri(filteredCereri);  // Salvează cererile filtrate în state
         } else {
-          alert("Eroare la încărcarea cererilor.");
+          toast.error("Eroare la încărcarea cererilor.", {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
         }
       } catch (error) {
         console.error("Eroare de rețea:", error);
@@ -49,10 +60,28 @@ const ColoanaCereri = ({ title }) => {
     });
 
     if (response.ok) {
-      alert("Cererea a fost respinsă!");
-      setCereri(cereri.filter((cerere) => cerere.id !== requestId)); // Elimină cererea respinsă din UI
+      toast.error("Cererea a fost respinsă!", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+      });
+      setCereri(cereri.filter((cerere) => cerere.id !== requestId));
     } else {
-      alert("Eroare la respingerea cererii.");
+      toast.error("Eroare la respingerea cererii.", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
   };
   const handleRejectProfessor = async (requestId) => {
@@ -66,10 +95,27 @@ const ColoanaCereri = ({ title }) => {
     });
   
     if (response.ok) {
-      alert("Cererea a fost respinsă de profesor!");
-      setCereri(cereri.filter((cerere) => cerere.id !== requestId)); // Elimină cererea respinsă din UI
+      toast.error("Cererea a fost respinsă de profesor!", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     } else {
-      alert("Eroare la respingerea cererii.");
+      toast.error("Eroare la aprobarea cererii de către profesor.", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
   };
   
@@ -85,10 +131,29 @@ const ColoanaCereri = ({ title }) => {
       body: JSON.stringify({ action: "approve" }),
     });
     if (response.ok) {
-      alert("Cererea a fost aprobată de profesor!");
+      toast.success("Cererea a fost aprobată de profesor și a fost trimisă  la secretariat!", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+      });
     } else {
-      alert("Eroare la aprobarea cererii de către profesor.");
-    }
+      const errorData = await response.json();
+      toast.error(`Eroare: ${errorData.error}`, {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }    
   };
 
   // Funcția pentru a aproba secretariatul
@@ -103,11 +168,30 @@ const ColoanaCereri = ({ title }) => {
     });
 
     if (response.ok) {
-      alert("Cererea a fost aprobată de secretariat și examenul a fost salvat!");
+      toast.success("Cererea a fost aprobată de secretariat și examenul a fost salvat!", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     } else {
       const errorData = await response.json();
-      alert(`Eroare: ${errorData.error}`);
+      toast.error(`Eroare: ${errorData.error}`, {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
+    
   };
 
   return (
@@ -147,6 +231,7 @@ const ColoanaCereri = ({ title }) => {
   ) : (
     <p>Nu există cereri disponibile.</p>
   )}
+      <ToastContainer />
 </div>
 
   );

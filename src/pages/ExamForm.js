@@ -5,6 +5,9 @@ import Nav from "../components/Navbar";
 
 import "react-datepicker/dist/react-datepicker.css";
 import "../styles/Programare.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 function ExamView() {
   const [name, setName] = useState("");
@@ -69,16 +72,25 @@ function ExamView() {
 
   const handleSubmit = async () => {
     if (!name || !examType || !scheduledDate || !duration || !department || !room || !proffesor || !scheduledTime) {
-      alert("All fields are required!");
+      toast.error("Toate câmpurile sunt obligatorii!", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+    });
       return;
     }
-
+  
     const dateString = scheduledTime;
     const date = new Date(dateString);
     const hours = date.getHours();
     const minutes = date.getMinutes().toString().padStart(2, '0');
     const formattedTime = `${hours}:${minutes}`;
-
+  
     const requestData = {
       exam_name: name,
       exam_type: examType,
@@ -88,9 +100,9 @@ function ExamView() {
       department,
       room,
       proffesor,
-      status: "Pending",  // Initial request status
+      status: "Pending",
     };
-
+  
     try {
       const access_token = localStorage.getItem("access_token");
       const response = await fetch("http://localhost:8000/requests/", {
@@ -101,9 +113,18 @@ function ExamView() {
         },
         body: JSON.stringify(requestData),
       });
-
+  
       if (response.ok) {
-        alert("Cererea a fost trimisă cu succes!");
+        toast.success("Cererea a fost trimisă cu succes!", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
         // Reset form fields
         setName("");
         setExamType("");
@@ -114,11 +135,29 @@ function ExamView() {
         setRoom("");
         setProfessor("");
       } else {
-        alert("Error while sending the request. Please check input data.");
+        toast.error("Eroare la trimiterea cererii. Verifică datele introduse!", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       }
     } catch (error) {
       console.error("Error:", error);
-      alert("Eroare la trimiterea cererii. Te rugăm să încerci din nou.");
+      toast.error("Eroare la trimiterea cererii. Te rugăm să încerci din nou.", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
   };
 
@@ -279,6 +318,7 @@ function ExamView() {
         </div>
 
       </div>
+      <ToastContainer />
 </div>
   );
 }
