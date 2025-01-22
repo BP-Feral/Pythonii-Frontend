@@ -9,7 +9,7 @@ import DashboardView from "./pages/Dashboard";
 import PrivateRoute from "./components/PrivateRoute";
 import Cereri from "./pages/Cereri";
 import RequestsPage from "./pages/RequestsPage"
-
+import AdvancedRoute from "./components/AdvancedRoute";
 
 const App = () => {
   return (
@@ -17,7 +17,7 @@ const App = () => {
         <Route path="/" element={<LoginView />} />
         {/* Protected routes */}
         <Route path="/calendar" element={<PrivateRoute element={<CalendarView />} />} />
-        <Route path="/programare" element={<PrivateRoute element={<ExamView />} />} />
+        <Route path="/programare" element={<PrivateRoute element={<AdvancedRoute element={<ExamView />} />} />} />
         <Route path="/despre-noi" element={<PrivateRoute element={<AboutUsView />} />} />
         <Route path="/administrare" element={<PrivateRoute element={<DashboardView />} />} />
         <Route path="/cereri" element={<PrivateRoute element={<Cereri/>}/>} />

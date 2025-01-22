@@ -8,6 +8,7 @@ export default function Nav() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userRole, setUserRole] = useState(null); // Stare pentru rol
   const navigate = useNavigate();
+  const role = localStorage.getItem("role");
 
   // Toggle Hamburger menu
   const toggleHamburger = () => {
@@ -53,6 +54,7 @@ export default function Nav() {
           // Clear the tokens from localStorage and redirect
           localStorage.removeItem("access_token");
           localStorage.removeItem("refresh_token");
+          localStorage.removeItem("role");
           setIsLoggedIn(false);
           navigate("/"); // Redirect to login page after logout
         } else {
@@ -87,7 +89,8 @@ export default function Nav() {
               <>
                 <li><Link to="/calendar">Calendar📅</Link></li>
                 {(userRole === "profesor" || userRole === "all") && <li><Link to="/cereri">Cereri</Link></li>}
-                {(userRole === "student" || userRole === "all")&& <li><Link to="/programare">Programare📅</Link></li>}
+                {/* {(userRole === "student" || userRole === "all")&& <li><Link to="/programare">Programare📅</Link></li>} */}
+                {(role === "Professor" || role == "Secretary" || role === "HeadOfDepartment" || role === "StudentRepresentative") && <li><Link to="/programare">Programare📅</Link></li>}
                 <li><Link to="/despre-noi">Despre Noi📄</Link></li>
 
                 <div className="vl"></div>
